@@ -60,16 +60,15 @@ void	ft_int(intmax_t d, t_struc *struc)
 	{
 		if (precision > 0)
 		{
-			if (d < 0) /////////////// вставить провел если пробел
+			if (d < 0)
 				write(1, "-", 1);
 			else
-				if (struc->plus)
+				if (struc->plus && d >= 0)
 					write(1, "+", 1);
 			if (struc->space)
 				write(1, " ", 1);
 			while (precision > 0)
 			{
-				
 				ft_putchar('0');
 				precision--;
 			}
@@ -86,21 +85,26 @@ void	ft_int(intmax_t d, t_struc *struc)
 	}
 	else
 	{
-		while (width > 0)
+		printf("d = %jd\n", d);
+		printf("width = %d\n", width);
+		while (width > 0) /// width = 0 ???????????????????????
 		{
+
 			if (struc->noll && struc->precision)
 				ft_putchar(' ');
-			else if (struc->noll)
+			else if (struc->noll) ///////////// ??????????????
+			{
+				if (d < 0)
+					write(1, "-", 1);
+				else
+					if (struc->plus && d >= 0)
+						write(1, "+", 1);
 				ft_putchar('0');
+			}
 			else
 				ft_putchar(' ');
 			width--;
 		}
-		if (d < 0)
-			write(1, "-", 1);
-		else
-			if (struc->plus)
-				write(1, "+", 1);
 		if (precision > 0)
 		{
 			while (precision > 0)
