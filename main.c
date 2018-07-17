@@ -13,14 +13,19 @@ int main(int argc, char **argv)
 	//long long ll = 9223372036854775807; // изменить itoa_base с -1 на 9223372036854775807
 	//unsigned long long ull = 18446744073709551615;
 	//int d = atoi(argv[1]);
-	unsigned long long d = 18446744073709551615;
+	int d = 10;
 	//short h = 55;
 	//unsigned int ui = 4294967295;
 
 	//ft_printf("%X\n", o);
 	//printf("%X\n", o);
-	ft_printf("my %jO\n", d);
-	printf("or %jO\n", d);
+	//ft_printf("my %-7d\n", d);
+	//printf("or %-7d\n", d);
+
+
+	ft_printf("%- 10.5d\n", 555);
+	printf("%- 10.5d\n", 555);
+	printf("%10.5d\n", 555);
 	//res = ft_printf("%u\n", i);
 	//printf("res = %d\n", res);
 	// printf("\n");

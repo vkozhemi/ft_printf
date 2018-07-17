@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base_uns.c                                 :+:      :+:    :+:   */
+/*   ft_itoa_base_plus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkozhemi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 16:11:22 by vkozhemi          #+#    #+#             */
-/*   Updated: 2018/07/17 16:11:53 by vkozhemi         ###   ########.fr       */
+/*   Created: 2018/07/17 16:13:57 by vkozhemi          #+#    #+#             */
+/*   Updated: 2018/07/17 16:14:01 by vkozhemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_len_uns(unsigned long long value, int base)
+intmax_t	ft_len_plus(intmax_t value, int base)
 {
-	unsigned long long len;
+	intmax_t len;
 
-	if (value == 0)
-		len = 1;
-	else
-		len = 0;
+	len = 0;
 	while (value)
 	{
 		value = value / base;
@@ -28,15 +25,22 @@ int	ft_len_uns(unsigned long long value, int base)
 	return (len);
 }
 
-char	*ft_itoa_base_uns(unsigned long long value, int base, int size)
+intmax_t	ft_abs_plus(intmax_t value)
 {
-	unsigned long long	nbr;
-	int					len;
-	char				*str;
-	char				*base_string;
+	if (value < 0)
+		value = value * (-1);
+	return (value);
+}
 
-	nbr = value;
-	len = ft_len_uns(value, base);
+char		*ft_itoa_base_plus(intmax_t value, int base, int size)
+{
+	intmax_t	nbr;
+	int			len;
+	char		*str;
+	char		*base_string;
+
+	nbr = ft_abs_plus(value);
+	len = ft_len_plus(value, base);
 	if (size == 0)
 		base_string = "0123456789ABCDEF";
 	else

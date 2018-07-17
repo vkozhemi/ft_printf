@@ -80,6 +80,7 @@ SRC =   ft_atoi.c \
 		get_next_line.c \
 		ft_itoa_base.c \
 		ft_itoa_base_uns.c \
+		ft_itoa_base_plus.c
 
 
 OBJECTS = $(SRC:.c=.o)

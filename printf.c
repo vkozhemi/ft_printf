@@ -26,6 +26,7 @@ void ft_flags(char *p, int *i, va_list ap, t_struc *struc)
 
 void ft_field_width(char *p, int *i, va_list ap, t_struc *struc)
 {
+	struc->width = 0;
 	struc->width = ft_atoi(p + (*i));
 	while (p[*i] >= '0' && p[*i] <= '9')
 		(*i)++;
@@ -37,6 +38,7 @@ void ft_precision(char *p, int *i, va_list ap, t_struc *struc)
 	if (p[*i] == '.')
 	{
 		(*i)++;
+		struc->precision = 0;
 		struc->precision = ft_atoi(p + (*i));
 		while (p[*i] >= '0' && p[*i] <= '9')
 			(*i)++;

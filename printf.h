@@ -13,7 +13,7 @@ typedef struct	s_struc
 {
 	size_t		count;
 	va_list		ap;
-	size_t		len_d_i;
+	size_t		len_int;
 	size_t		len_u;
 	size_t		len_ld; // long int
 	size_t		len_lu; // unsigned long int

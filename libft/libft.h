@@ -97,5 +97,6 @@ int					ft_sqrt(int nb);
 char				*ft_itoa_base(intmax_t value, int base, int size);
 char				*ft_itoa_base_uns(unsigned long long value, int base,
 					int size);
+char				*ft_itoa_base_plus(intmax_t value, int base, int size);
 
 #endif
