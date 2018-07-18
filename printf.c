@@ -30,7 +30,7 @@ void ft_field_width(char *p, int *i, va_list ap, t_struc *struc)
 	struc->width = ft_atoi(p + (*i));
 	while (p[*i] >= '0' && p[*i] <= '9')
 		(*i)++;
-	printf("struc->width = %d\n", struc->width);
+	//printf("struc->width = %d\n", struc->width);
 }
 
 void ft_precision(char *p, int *i, va_list ap, t_struc *struc)
@@ -42,7 +42,7 @@ void ft_precision(char *p, int *i, va_list ap, t_struc *struc)
 		struc->precision = ft_atoi(p + (*i));
 		while (p[*i] >= '0' && p[*i] <= '9')
 			(*i)++;
-		printf("struc->precision = %d\n", struc->precision);
+	//	printf("struc->precision = %d\n", struc->precision);
 	}
 }
 
@@ -63,7 +63,7 @@ void ft_size_modifier(char *p, int *i, va_list ap, t_struc *struc)
 		struc->modifier = p[*i];
 		(*i)++;
 	}
-	printf("struc->modifier = %c\n", struc->modifier);
+	//printf("struc->modifier = %c\n", struc->modifier);
 }
 
 void ft_get_conversions(char *p, int *i, va_list ap, t_struc *struc)
@@ -190,7 +190,7 @@ void ft_call_pars(char *fmt, va_list ap, t_struc *struc)
 		i++;
 	}
 	struc->count = ft_strlen(p);
-	printf("struc->count = %zu\n", struc->count);
+	//printf("struc->count = %zu\n", struc->count);
 
 	// if (p[i] == '\0' && j == 0)
 	// {

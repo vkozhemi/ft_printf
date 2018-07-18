@@ -23,8 +23,8 @@ int main(int argc, char **argv)
 	//printf("or %-7d\n", d);
 
 
-	ft_printf("%+05.4d\n", -42);
-	printf("%+05.4d\n", -42);
+	ft_printf("%-12.4d\n", -42);
+	printf("%-12.4d\n", -42);
 	//res = ft_printf("%u\n", i);
 	//printf("res = %d\n", res);
 	// printf("\n");

@@ -32,7 +32,9 @@ void	ft_int(intmax_t d, t_struc *struc)
 	char	*str;
 	int		width;
 	int		precision;
+	int 	flag;
 
+	flag = 1;
 	if (d < 0)
 		str = ft_itoa_base_plus(d, 10, 0);
 	else
@@ -47,7 +49,7 @@ void	ft_int(intmax_t d, t_struc *struc)
 		precision = 0;
 	if (struc->width)
 	{
-		if ((struc->plus && d > 0) || (struc->plus && d < 0) || d < 0)
+		if ((struc->plus && d > 0) || (struc->plus && d < 0) || d < 0 || (struc->plus && d == 0))
 			width = struc->width - ft_strlen(str) - precision - 1;
 		else if (struc->space)
 			width = struc->width - ft_strlen(str) - precision - 1;
@@ -56,14 +58,24 @@ void	ft_int(intmax_t d, t_struc *struc)
 	}
 	else
 		width = 0;
+	if (width < 0)
+		width = 0;
 	if (struc->minus)
 	{
+		if (struc->space && width && d > 0) /////////////// space ????????????????
+			write(1, " ", 1);
+		if (struc->plus && d >= 0 && flag)
+		{
+			write(1, "+", 1);
+			flag--;
+		} /////////////// space ????????????????
+			
 		if (precision > 0)
 		{
 			if (d < 0)
 				write(1, "-", 1);
 			else
-				if (struc->plus && d >= 0)
+				if (struc->plus && d >= 0 && flag)
 					write(1, "+", 1);
 			if (struc->space)
 				write(1, " ", 1);
@@ -73,6 +85,8 @@ void	ft_int(intmax_t d, t_struc *struc)
 				precision--;
 			}
 		}
+		if (d < 0 && struc->precision == 0)
+			write(1, "-", 1);
 		ft_putstr(str);
 		while (width > 0)
 		{
@@ -85,20 +99,53 @@ void	ft_int(intmax_t d, t_struc *struc)
 	}
 	else
 	{
-		printf("d = %jd\n", d);
+		if (struc->space && struc->noll && width && d > 0) /////////////// space ????????????????
+			write(1, " ", 1);
 		printf("width = %d\n", width);
+		if (width == 0)
+		{
+			if (width == 0 && struc->plus && d >= 0)
+					write(1, "+", 1);
+				else if (d < 0)
+					write(1, "-", 1);
+		}
 		while (width > 0) /// width = 0 ???????????????????????
 		{
-
-			if (struc->noll && struc->precision)
-				ft_putchar(' ');
-			else if (struc->noll) ///////////// ??????????????
+			
+			if ((d < 0 && struc->noll == 0) || (struc->plus && struc->noll == 0))
 			{
-				if (d < 0)
+				while (width > 0)
+				{
+					ft_putchar(' ');
+					width--;
+				}
+				if (struc->plus && d >= 0)
+					write(1, "+", 1);
+				else if (d < 0 )
+					write(1, "-", 1);
+			}
+			else if (struc->noll && struc->precision)
+			{
+				if (struc->plus && d >= 0)
+					write(1, "+", 1);
+				else if (d < 0)
 					write(1, "-", 1);
 				else
-					if (struc->plus && d >= 0)
+					ft_putchar(' ');
+			}
+			else if (struc->noll) ///////////// ??????????????
+			{
+				if (d < 0 && flag)
+				{
+					write(1, "-", 1);
+					flag--;
+				}
+				else
+					if (struc->plus && d >= 0 && flag)
+					{
 						write(1, "+", 1);
+						flag--;
+					}
 				ft_putchar('0');
 			}
 			else
