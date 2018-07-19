@@ -35,13 +35,15 @@ void ft_field_width(char *p, int *i, va_list ap, t_struc *struc)
 
 void ft_precision(char *p, int *i, va_list ap, t_struc *struc)
 {
+	struc->flag_precision = 0;
+	struc->precision = 0;
 	if (p[*i] == '.')
 	{
 		(*i)++;
-		struc->precision = 0;
 		struc->precision = ft_atoi(p + (*i));
 		while (p[*i] >= '0' && p[*i] <= '9')
 			(*i)++;
+		struc->flag_precision = 1;
 	//	printf("struc->precision = %d\n", struc->precision);
 	}
 }
@@ -162,13 +164,10 @@ void ft_call_pars(char *fmt, va_list ap, t_struc *struc)
 	int		i;
 	int		j;
 	char	*p;
-	size_t	count;
 
 	j = 0;
 	p = fmt;
-	count = 0;
 	i = 0;
-	struc->count = count;
 	while (p[i])
 	{
 		if (p[i] =='%')
@@ -186,10 +185,12 @@ void ft_call_pars(char *fmt, va_list ap, t_struc *struc)
 			//i++; // change it!!!!!
 		}
 		else
-			write(1, &p[i], 1);	
+		{
+			write(1, &p[i], 1);
+			struc->count += 1;	
+		}
 		i++;
 	}
-	struc->count = ft_strlen(p);
 	//printf("struc->count = %zu\n", struc->count);
 
 	// if (p[i] == '\0' && j == 0)
@@ -208,6 +209,7 @@ int ft_printf(char *fmt, ...)
 	char	*p;
 
 	struc = (t_struc*)malloc(sizeof(t_struc));
+	struc->count = 0;
 	va_start(ap, fmt); /* устанавливает ap на 1-й безымянный аргумент */
 	ft_call_pars(fmt, ap, struc);
 	va_end(ap); /* очистка, когда все сделано */

@@ -50,5 +50,7 @@ char	*ft_itoa_base_uns(unsigned long long value, int base, int size)
 		str[--len] = base_string[nbr % base];
 		nbr = nbr / base;
 	}
+	if (value == 0)
+		str[0] = '0';
 	return (str);
 }

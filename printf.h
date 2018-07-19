@@ -31,6 +31,7 @@ typedef struct	s_struc
 	int 		space;
 	int			width;
 	int			precision;
+	int 		flag_precision;
 	char		modifier;
 	char 		conversions;
 }				t_struc;

@@ -33,7 +33,9 @@ void	ft_int(intmax_t d, t_struc *struc)
 	int		width;
 	int		precision;
 	int 	flag;
+	int		i;
 
+	i = 0;
 	flag = 1;
 	if (d < 0)
 		str = ft_itoa_base_plus(d, 10, 0);
@@ -53,6 +55,8 @@ void	ft_int(intmax_t d, t_struc *struc)
 			width = struc->width - ft_strlen(str) - precision - 1;
 		else if (struc->space)
 			width = struc->width - ft_strlen(str) - precision - 1;
+		else if (d == 0 && struc->precision == 0 && struc->flag_precision) /////////
+			width = struc->width;
 		else
 			width = struc->width - ft_strlen(str) - precision;
 	}
@@ -60,35 +64,39 @@ void	ft_int(intmax_t d, t_struc *struc)
 		width = 0;
 	if (width < 0)
 		width = 0;
+	// printf("struc->width = %d\n", struc->width);
+	// printf("width = %d\n", width);
 	if (struc->minus)
 	{
-		if (struc->space && width && d > 0) /////////////// space ????????????????
+		if (struc->space && width && d > 0 && ++i)
 			write(1, " ", 1);
-		if (struc->plus && d >= 0 && flag)
+		if (struc->plus && d >= 0 && flag && ++i)
 		{
 			write(1, "+", 1);
 			flag--;
-		} /////////////// space ????????????????
-			
+		}
 		if (precision > 0)
 		{
-			if (d < 0)
+			if (d < 0 && ++i)
 				write(1, "-", 1);
 			else
-				if (struc->plus && d >= 0 && flag)
+				if (struc->plus && d >= 0 && flag && ++i)
 					write(1, "+", 1);
-			if (struc->space)
+			if (struc->space && ++i)
 				write(1, " ", 1);
-			while (precision > 0)
+			while (precision > 0 && ++i)
 			{
 				ft_putchar('0');
 				precision--;
 			}
 		}
-		if (d < 0 && struc->precision == 0)
+		if (d < 0 && struc->precision == 0 && ++i)
 			write(1, "-", 1);
-		ft_putstr(str);
-		while (width > 0)
+		if (struc->precision == 0 && d == 0 && struc->flag_precision)
+			write(1, "", 0);
+		else
+			ft_putstr(str);
+		while (width > 0 && ++i)
 		{
 			if (struc->noll)
 				ft_putchar('0');
@@ -99,68 +107,81 @@ void	ft_int(intmax_t d, t_struc *struc)
 	}
 	else
 	{
-		if (struc->space && struc->noll && width && d > 0) /////////////// space ????????????????
+		if (struc->space && struc->noll && width && d > 0 && ++i)
 			write(1, " ", 1);
-		printf("width = %d\n", width);
+		//printf("width = %d\n", width);
 		if (width == 0)
 		{
-			if (width == 0 && struc->plus && d >= 0)
-					write(1, "+", 1);
-				else if (d < 0)
-					write(1, "-", 1);
+			if (width == 0 && struc->plus && d >= 0 && ++i)
+				write(1, "+", 1);
+			else if (d < 0 && ++i)
+				write(1, "-", 1);
 		}
-		while (width > 0) /// width = 0 ???????????????????????
+		while (width > 0)
 		{
-			
+			//printf("struc->noll = %d\n", struc->noll);
+			//printf("width = %d\n", width);
 			if ((d < 0 && struc->noll == 0) || (struc->plus && struc->noll == 0))
 			{
-				while (width > 0)
+				while (width > 0 && ++i)
 				{
 					ft_putchar(' ');
 					width--;
 				}
-				if (struc->plus && d >= 0)
+				if (struc->plus && d >= 0 && ++i)
 					write(1, "+", 1);
-				else if (d < 0 )
+				else if (d < 0 && ++i)
 					write(1, "-", 1);
 			}
 			else if (struc->noll && struc->precision)
 			{
-				if (struc->plus && d >= 0)
+				while (width && d < 0 && ++i)
+				{
+					write(1, " ", 1);
+					width--;
+				}
+				if (struc->plus && d >= 0 && ++i)
 					write(1, "+", 1);
-				else if (d < 0)
+				else if (d < 0 && ++i)
 					write(1, "-", 1);
-				else
+				else if (++i)
 					ft_putchar(' ');
 			}
-			else if (struc->noll) ///////////// ??????????????
+			else if (struc->noll)
 			{
-				if (d < 0 && flag)
+				if (d < 0 && flag && ++i)
 				{
 					write(1, "-", 1);
 					flag--;
 				}
-				else
-					if (struc->plus && d >= 0 && flag)
-					{
+				else if (struc->plus && d >= 0 && flag && ++i)
+				{
 						write(1, "+", 1);
 						flag--;
-					}
-				ft_putchar('0');
+				}
+				write(1, "0", 1);
+				i++;
 			}
-			else
-				ft_putchar(' ');
+			else if (++i)
+				write(1, " ", 1);
 			width--;
 		}
 		if (precision > 0)
 		{
-			while (precision > 0)
+			while (precision > 0 && ++i)
 			{
 				ft_putchar('0');
 				precision--;
 			}
 		}
-		ft_putstr(str);
+		if (struc->precision == 0 && d == 0 && struc->flag_precision)
+			write(1, "", 0);
+		else
+			ft_putstr(str);
 	}
-	struc->len_int = ft_strlen(str);
+	if (d == 0 && struc->precision)
+		struc->count += i;
+	else
+		struc->count += ft_strlen(str) + i;
+	//printf("struc->count = %zu\n", struc->count);
 }
