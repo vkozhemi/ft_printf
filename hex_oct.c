@@ -9,21 +9,75 @@
 // 	struc->len_uhb = ft_strlen(str);
 // }
 
+void	ft_u(uintmax_t d, t_struc *struc)
+{
+	char *str;
+
+	str = ft_itoa_base_uns(d, 10, 0);
+	ft_putstr(str);
+	struc->count = ft_strlen(str);
+}
+
+void	ft_U(uintmax_t d, t_struc *struc)
+{
+	char *str;
+
+	str = ft_itoa_base_uns(d, 10, 0);
+	ft_putstr(str);
+	struc->count = ft_strlen(str);
+}
+
+void	ft_o(uintmax_t d, t_struc *struc)
+{
+	char *str;
+
+	str = ft_itoa_base_uns(d, 8, 0);
+	ft_putstr(str);
+	struc->count = ft_strlen(str);
+}
+
+void	ft_O(uintmax_t d, t_struc *struc)
+{
+	char *str;
+
+	str = ft_itoa_base_uns(d, 8, 0);
+	ft_putstr(str);
+	struc->count = ft_strlen(str);
+}
+
+void	ft_x(uintmax_t d, t_struc *struc)
+{
+	char *str;
+
+	str = ft_itoa_base_uns(d, 16, 1);
+	ft_putstr(str);
+	struc->count = ft_strlen(str);
+}
+
+void	ft_X(uintmax_t d, t_struc *struc)
+{
+	char *str;
+
+	str = ft_itoa_base_uns(d, 16, 0);
+	ft_putstr(str);
+	struc->count = ft_strlen(str);
+}
+
 void	ft_uns_int(uintmax_t d, t_struc *struc)
 {
 	char *str;
 	if (struc->conversions == 'u')
-		str = ft_itoa_base_uns(d, 10, 0);
+		ft_u(d, struc);
 	else if (struc->conversions == 'U') // long
-		str = ft_itoa_base_uns(d, 10, 0);
+		ft_U(d, struc);
 	else if (struc->conversions == 'o')
-		str = ft_itoa_base_uns(d, 8, 0);
+		ft_o(d, struc);
 	else if (struc->conversions == 'O')
-		str = ft_itoa_base_uns(d, 8, 0); // long
+		ft_O(d, struc); // long
 	else if (struc->conversions == 'x')
-		str = ft_itoa_base_uns(d, 16, 1);
+		ft_x(d, struc);
 	else if (struc->conversions == 'X')
-		str = ft_itoa_base_uns(d, 16, 0); // большие буквы
+		ft_X(d, struc);// большие буквы
 	ft_putstr(str);
 	struc->count = ft_strlen(str);
 }

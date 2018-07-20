@@ -11,7 +11,6 @@
 
 typedef struct	s_struc
 {
-	size_t		count;
 	va_list		ap;
 	int 		minus;
 	int 		plus;
@@ -19,10 +18,14 @@ typedef struct	s_struc
 	int 		hash;
 	int 		space;
 	int			width;
+	int 		calc_width;
 	int			precision;
+	int 		calc_precision;
 	int 		flag_precision;
 	char		modifier;
 	char 		conversions;
+	char 		str;
+	size_t		count;
 }				t_struc;
 
 
