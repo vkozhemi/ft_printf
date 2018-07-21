@@ -22,9 +22,11 @@ typedef struct	s_struc
 	int			precision;
 	int 		calc_precision;
 	int 		flag_precision;
+	int 		flag_int;
 	char		modifier;
 	char 		conversions;
 	char 		str;
+	int 		i;
 	size_t		count;
 }				t_struc;
 
@@ -53,6 +55,20 @@ void	ft_wchar_c11(unsigned int v, unsigned int mask1, unsigned char octet, t_str
 void	ft_wchar_c16(unsigned int v, unsigned int mask2, unsigned char octet, t_struc *struc);
 void	ft_wchar_c32(unsigned int v, unsigned int mask3, unsigned char octet, t_struc *struc);
 void	ft_wchar_s(va_list ap, t_struc *struc);
+char	ft_plus_minus_int(intmax_t d, char **str);
+void	ft_find_precision_int(t_struc *struc, char *str);
+void	ft_width_int(t_struc *struc, char *str, int d);
+void	ft_flag_minus_int_0(t_struc *struc, int d);
+void	ft_flag_minus_int(t_struc *struc, char *str, int d);
+void	ft_flag_no_minus_int_0(t_struc *struc, int d);
+void	ft_flag_no_minus_int_1(t_struc *struc, int d);
+void	ft_flag_no_minus_int_2(t_struc *struc, int d);
+void	ft_flag_no_minus_int_3(t_struc *struc, int d);
+void	ft_flag_no_minus_int(t_struc *struc, char *str, int d);
+void	ft_count_int(t_struc *struc, char *str, int d);
+
+
+
 
 
 #endif

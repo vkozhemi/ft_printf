@@ -21,8 +21,6 @@ int main(void)
 {
 // sSpdDioOuUxXcC
 
-	 // int i;
-	 // int j;
 	//char c = 'a';
 	//char c = 43;
 	//char *s = "hello world";
@@ -42,22 +40,22 @@ int main(void)
 	//printf("or %-7d\n", d);
 
 
-	ft_printf("my |%-+10.5d\n", -42);
-	printf("or |%-+10.5d\n", -42);
-	// printf("i = %d\n", i);
-	// printf("j = %d\n", j);
-	// int nmb = 4235;
-		// #define CNV "li"
-	 // 	 printf("\n   |"CNV"|:\n");
-	// 	 PRINTF("|%1.1"CNV"|\t\t|%5.1"CNV"|\t\t|%5.3"CNV"|\t\t|%1.5"CNV"|\t",nmb, nmb, nmb, nmb);
-	// 	 PRINTF("|%1.1"CNV"|\t\t|%5.1"CNV"|\t\t|%5.3"CNV"|\t\t|%1.5"CNV"|",-nmb, -nmb, -nmb, -nmb);
-	// 	 PRINTF("|%3.5"CNV"|\t\t|%3.5"CNV"|\t|%07.5"CNV"|\t|%010.5"CNV"|",nmb, -nmb, nmb, -nmb);
-	// 	 PRINTF("|%8.5"CNV"|\t|%8.5"CNV"|\t|%08"CNV"|\t|%08"CNV"|",nmb, -nmb, nmb, -nmb);
-	// 	 PRINTF("|%-.10"CNV"|\t|%.10"CNV"|\t|%-15.10"CNV"|\t|%15.10"CNV"|",42,42,42,42);
-	// 	 PRINTF("|%-12.8"CNV"|\t|%12.8"CNV"|\t|%-12.5"CNV"|\t|%-12.8"CNV"|\t",42,42,42,42);
-	// 	 PRINTF("|%7.5"CNV"|\t|%-7.5"CNV"|\t|%7.5"CNV"|\t|%-7.5"CNV"|\t", 42,42,42,42);
-	// 	 PRINTF("|%12.8"CNV"|\t|%20.8"CNV"|\t|%20.8"CNV"||%20"CNV"|\t|%10.8"CNV"|",42,42,42,42,42);
-	 	 // PRINTF("|%."CNV" %.0"CNV" %0."CNV" %0.0"CNV"|\t\t|%"CNV" %.2"CNV" %2."CNV" %2.2"CNV"|\t\t\t\t",2147483648,-2147483648,-2147483649,2147483648,2147483648,2147483648,2147483648,2147483648);
+	// int i = ft_printf("%-2.d\n", 0);
+	// int j = printf("%-2.d\n", 0);
+	//  printf("i = %d\n", i);
+	//  printf("j = %d\n", j);
+	int nmb = 4235;
+		#define CNV "i"
+	 	 printf("\n   |"CNV"|:\n");
+		 PRINTF("|%1.1"CNV"|\t\t|%5.1"CNV"|\t\t|%5.3"CNV"|\t\t|%1.5"CNV"|\t",nmb, nmb, nmb, nmb);
+		 PRINTF("|%1.1"CNV"|\t\t|%5.1"CNV"|\t\t|%5.3"CNV"|\t\t|%1.5"CNV"|",-nmb, -nmb, -nmb, -nmb);
+		 PRINTF("|%3.5"CNV"|\t\t|%3.5"CNV"|\t|%07.5"CNV"|\t|%010.5"CNV"|",nmb, -nmb, nmb, -nmb);
+		 PRINTF("|%8.5"CNV"|\t|%8.5"CNV"|\t|%08"CNV"|\t|%08"CNV"|",nmb, -nmb, nmb, -nmb);
+		 PRINTF("|%-.10"CNV"|\t|%.10"CNV"|\t|%-15.10"CNV"|\t|%15.10"CNV"|",42,42,42,42);
+		 PRINTF("|%-12.8"CNV"|\t|%12.8"CNV"|\t|%-12.5"CNV"|\t|%-12.8"CNV"|\t",42,42,42,42);
+		 PRINTF("|%7.5"CNV"|\t|%-7.5"CNV"|\t|%7.5"CNV"|\t|%-7.5"CNV"|\t", 42,42,42,42);
+		 PRINTF("|%12.8"CNV"|\t|%20.8"CNV"|\t|%20.8"CNV"||%20"CNV"|\t|%10.8"CNV"|",42,42,42,42,42);
+	 	 PRINTF("|%."CNV" %.0"CNV" %0."CNV" %0.0"CNV"|\t\t|%"CNV" %.2"CNV" %2."CNV" %2.2"CNV"|\t\t\t\t",0,0,0,0,0,0,0,0);
 	
 	// #ifdef LENGTH
 	// TITLE("Number options(field width and length modifiers):\n");

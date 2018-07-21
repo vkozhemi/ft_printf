@@ -12,7 +12,8 @@
 
 NAME = libftprintf.a
 TEST = ft_printf.out
-SRCS = printf.c ft_wchar_c.c int.c str_c_pointer_wchars.c hex_oct.c
+SRCS = printf.c ft_wchar_c.c int.c str_c_pointer_wchars.c hex_oct.c \
+		int_flag_no_minus.c int_flag_minus.c
 
 OBJS = $(SRCS:.c=.o)
 

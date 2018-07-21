@@ -1,110 +1,21 @@
 #include "printf.h"
 
-// void	ft_uns_hexb(va_list ap, t_struc *struc)
-// {
-// 	char *str;
-
-// 	str = ft_itoa_base(va_arg(ap, unsigned int), 16, 0);
-// 	ft_putstr(str);
-// 	struc->len_uhb = ft_strlen(str);
-// }
-
-void	ft_u(uintmax_t d, t_struc *struc)
-{
-	char *str;
-
-	str = ft_itoa_base_uns(d, 10, 0);
-	ft_putstr(str);
-	struc->count = ft_strlen(str);
-}
-
-void	ft_U(uintmax_t d, t_struc *struc)
-{
-	char *str;
-
-	str = ft_itoa_base_uns(d, 10, 0);
-	ft_putstr(str);
-	struc->count = ft_strlen(str);
-}
-
-void	ft_o(uintmax_t d, t_struc *struc)
-{
-	char *str;
-
-	str = ft_itoa_base_uns(d, 8, 0);
-	ft_putstr(str);
-	struc->count = ft_strlen(str);
-}
-
-void	ft_O(uintmax_t d, t_struc *struc)
-{
-	char *str;
-
-	str = ft_itoa_base_uns(d, 8, 0);
-	ft_putstr(str);
-	struc->count = ft_strlen(str);
-}
-
-void	ft_x(uintmax_t d, t_struc *struc)
-{
-	char *str;
-
-	str = ft_itoa_base_uns(d, 16, 1);
-	ft_putstr(str);
-	struc->count = ft_strlen(str);
-}
-
-void	ft_X(uintmax_t d, t_struc *struc)
-{
-	char *str;
-
-	str = ft_itoa_base_uns(d, 16, 0);
-	ft_putstr(str);
-	struc->count = ft_strlen(str);
-}
-
 void	ft_uns_int(uintmax_t d, t_struc *struc)
 {
 	char *str;
 	if (struc->conversions == 'u')
-		ft_u(d, struc);
+		str = ft_itoa_base_uns(d, 10, 0);
 	else if (struc->conversions == 'U') // long
-		ft_U(d, struc);
+		str = ft_itoa_base_uns(d, 10, 0);
 	else if (struc->conversions == 'o')
-		ft_o(d, struc);
+		str = ft_itoa_base_uns(d, 8, 0);
 	else if (struc->conversions == 'O')
-		ft_O(d, struc); // long
+		str = ft_itoa_base_uns(d, 8, 0); // long
 	else if (struc->conversions == 'x')
-		ft_x(d, struc);
+		str = ft_itoa_base_uns(d, 16, 1);
 	else if (struc->conversions == 'X')
-		ft_X(d, struc);// большие буквы
+		str = ft_itoa_base_uns(d, 16, 0);// большие буквы
+	
 	ft_putstr(str);
 	struc->count = ft_strlen(str);
 }
-
-// void	ft_uns_hex(uintmax_t d, t_struc *struc)
-// {
-// 	char *str;
-
-// 	str = ft_itoa_base(d, 16, 1); // 1 & 0
-// 	ft_putstr(str);
-// 	struc->len_uh = ft_strlen(str);
-// }
-
-// void	ft_uns_oct(uintmax_t d, t_struc *struc)
-// {
-// 	char *str;
-
-// 	str = ft_itoa_base(d, 8, 0); // long
-// 	ft_putstr(str);
-// 	struc->len_uo = ft_strlen(str);
-// }
-
-// void	ft_uns_long_oct(va_list ap, t_struc *struc)
-// {
-// 	char *str;
-
-// 	str = ft_itoa_base(va_arg(ap, unsigned long int), 8, 0);
-// 	ft_putstr(str);
-// 	struc->len_ulo = ft_strlen(str);
-// }
