@@ -23,6 +23,7 @@ typedef struct	s_struc
 	int 		calc_precision;
 	int 		flag_precision;
 	int 		flag_int;
+	int			flag_uns_int;
 	char		modifier;
 	char 		conversions;
 	char 		str;
@@ -39,7 +40,7 @@ void	ft_field_width(char *p, int *i, t_struc *struc);
 void	ft_precision(char *p, int *i, t_struc *struc);
 void	ft_size_modifier(char *p, int *i, t_struc *struc);
 void	ft_int(intmax_t d, t_struc *struc);
-void	ft_uns_int(uintmax_t d, t_struc *struc);
+void	ft_uns_int(uintmax_t d, t_struc *struc, char *p, int *i);
 void	ft_long_int(va_list ap, t_struc *struc);
 void	ft_uns_long_int(va_list ap, t_struc *struc);
 void	ft_uns_long_oct(va_list ap, t_struc *struc);
@@ -66,9 +67,8 @@ void	ft_flag_no_minus_int_2(t_struc *struc, int d);
 void	ft_flag_no_minus_int_3(t_struc *struc, int d);
 void	ft_flag_no_minus_int(t_struc *struc, char *str, int d);
 void	ft_count_int(t_struc *struc, char *str, int d);
-
-
-
+void	ft_flag_minus_uns_int(t_struc *struc, char *str, int d, char *p, int *i);
+void	ft_flag_no_minus_uns_int(t_struc *struc, char *str, int d, char *p, int *i);
 
 
 #endif

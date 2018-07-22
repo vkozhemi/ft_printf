@@ -126,19 +126,19 @@ void ft_conversions(char *p, int *i, va_list ap, t_struc *struc)  // hh, h, l, l
 			|| p[*i] == 'x' || p[*i] == 'X') 								// u: l ll h hh j z         U:         
 	{
 		if (struc->modifier == 'l')
-			ft_uns_int(va_arg(ap, unsigned long int), struc);
+			ft_uns_int(va_arg(ap, unsigned long int), struc, p, i);
 		else if (struc->modifier == 'L') // ll
-			ft_uns_int(va_arg(ap, unsigned long long int), struc);
+			ft_uns_int(va_arg(ap, unsigned long long int), struc, p, i);
 		else if (struc->modifier == 'h')
-			ft_uns_int((short)va_arg(ap, unsigned int), struc);
+			ft_uns_int((short)va_arg(ap, unsigned int), struc, p, i);
 		else if (struc->modifier == 'H') // hh - char or unsigned char
-			ft_uns_int((unsigned char)va_arg(ap, unsigned int), struc);
+			ft_uns_int((unsigned char)va_arg(ap, unsigned int), struc, p, i);
 		else if (struc->modifier == 'j') // 
-			ft_uns_int(va_arg(ap, uintmax_t), struc);
+			ft_uns_int(va_arg(ap, uintmax_t), struc, p, i);
 		else if (struc->modifier == 'z') // 
-			ft_uns_int(va_arg(ap, size_t), struc);
+			ft_uns_int(va_arg(ap, size_t), struc, p, i);
 		else
-			ft_uns_int(va_arg(ap, unsigned int), struc);
+			ft_uns_int(va_arg(ap, unsigned int), struc, p, i);
 	}
 	else if (p[*i] == 'C')
 	{
