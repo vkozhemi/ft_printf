@@ -102,12 +102,25 @@ void ft_conversions(char *p, int *i, va_list ap, t_struc *struc)  // hh, h, l, l
 {
 	ft_get_conversions(p, i, struc);
 	if (p[*i] == 'c')
-		ft_char(ap, struc);
+	{
+		if (struc->modifier == 'l')
+		{
+			wchar_t value = va_arg(ap, wchar_t);
+			ft_wchar_c(value, struc);
+		}
+		else
+			ft_char(ap, struc);
+	}
 	else if (p[*i] == 's')
-		ft_str(ap, struc);
+	{
+		if (struc->modifier == 'l')
+			ft_wchar_s(ap, struc);
+		else
+			ft_str(ap, struc);
+	}
 	else if (p[*i] == 'd' || p[*i] == 'i' || p[*i] == 'D') // l ll h hh j z 
 	{
-		if (struc->modifier == 'l' || p[*i] == 'D')
+		if (struc->modifier == 'l' || p[*i] == 'D') /////////////////////// ????????????????
 			ft_int(va_arg(ap, long int), struc);
 		else if (struc->modifier == 'L') // ll
 			ft_int(va_arg(ap, long long int), struc);
@@ -147,14 +160,6 @@ void ft_conversions(char *p, int *i, va_list ap, t_struc *struc)  // hh, h, l, l
 	}
 	else if (p[*i] == 'S')
 	 	ft_wchar_s(ap, struc);
-//	else if (p[*i] == 'O') long o
-//		ft_uns_long_oct(ap, struc);
-//	else if (p[*i] == 'o') // l ll h hh j z
-//		ft_uns_oct(ap, struc);
-//	else if (p[*i] == 'x') // l ll h hh j z
-//		ft_uns_hex(ap, struc);
-//	else if (p[*i] == 'X') // l ll h hh j z  //большие буквы
-//		ft_uns_hexb(ap, struc);
 	else if (p[*i] == 'p')
 		ft_pointer(ap, struc);
 }
@@ -180,6 +185,7 @@ void ft_call_pars(char *fmt, va_list ap, t_struc *struc)
 				ft_precision(p, &i, struc);
 				ft_size_modifier(p, &i, struc);
 				ft_conversions(p, &i, ap, struc);
+			//	ft_bzero(struc, sizeof(int) * 13 + sizeof(char) * 3);  /////////// ??????????????
 				j++;
 			}
 			//i++; // change it!!!!!

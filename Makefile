@@ -12,7 +12,7 @@
 
 NAME = libftprintf.a
 TEST = ft_printf.out
-SRCS = printf.c ft_wchar_c.c int.c str_c_pointer_wchars.c hex_oct.c \
+SRCS = printf.c ft_wchar_c.c int.c str_c_pointer_wchars.c uns_int.c \
 		int_flag_no_minus.c int_flag_minus.c uns_int_flag_minus.c uns_int_flag_no_minus.c
 
 OBJS = $(SRCS:.c=.o)
@@ -25,7 +25,7 @@ $(NAME):
 	@ar rc $(NAME) *.o
 
 test:
-	@gcc -g -L. -Wall -Wextra -Werror -lftprintf $(SRCS) main.c -o $(TEST)
+	@gcc -g -L. -lftprintf $(SRCS) main.c -o $(TEST)
 
 clean:
 	@rm -rf *.o libft/*.o

@@ -11,7 +11,7 @@
 
 typedef struct	s_struc
 {
-	va_list		ap;
+	// va_list		ap;
 	int 		minus;
 	int 		plus;
 	int 		noll;

@@ -12,18 +12,20 @@
 
 #include "printf.h"
 
-void	ft_flag_no_minus_uns_int(t_struc *struc, char *str, int d, char *p, int *i)
+void	ft_flag_no_minus_uns_int_0(t_struc *struc, int d, char *p, int *i)
 {
-	// printf("struc->precision = %d\n", struc->precision);
-	// printf("struc->width = %d\n", struc->width);
-	struc->flag_uns_int = 1;
-	if (struc->noll && struc->precision && ++struc->i)
+	if (struc->noll && struc->precision)
 	{
-		while (struc->calc_width > 0)
+		while (struc->calc_width > 0 && ++struc->i)
 		{
 			write(1, " ", 1);
 			struc->calc_width--;
 		}
+	}
+	while (struc->calc_width > 0 && ++struc->i)
+	{
+		write(1, " ", 1);
+		struc->calc_width--;
 	}
 	if (struc->hash && p[*i] == 'x' && d && struc->flag_uns_int)
 	{
@@ -37,23 +39,30 @@ void	ft_flag_no_minus_uns_int(t_struc *struc, char *str, int d, char *p, int *i)
 		struc->i += 2;
 		struc->flag_uns_int--;
 	}
-	if (struc->noll && ++struc->i && d)
+}
+
+void	ft_flag_no_minus_uns_int_1(t_struc *struc, int d)
+{
+	if (struc->noll && d)
 	{
-		while (struc->calc_width > 0)
+		while (struc->calc_width > 0 && ++struc->i)
 		{
 			write(1, "0", 1);
 			struc->calc_width--;
 		}
 	}
-	if (++struc->i)
-	{
-		while (struc->calc_width > 0)
-		{
-			write(1, " ", 1);
-			struc->calc_width--;
-		}
-	}
-	if (struc->hash && d && (p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
+}
+
+void	ft_flag_no_minus_uns_int(t_struc *struc,
+		char *str, int d, char *p, int *i)
+{
+	struc->flag_uns_int = 1;
+	ft_flag_no_minus_uns_int_0(struc, d, p, i);
+	ft_flag_no_minus_uns_int_1(struc, d);
+	if (struc->hash && d > 0 && (p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
+		write(1, "0", 1);
+	else if (struc->hash && d == 0 && struc->precision &&
+			(p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
 		write(1, "0", 1);
 	while (struc->calc_precision > 0 && ++struc->i)
 	{
