@@ -12,7 +12,7 @@
 
 NAME = libftprintf.a
 TEST = ft_printf.out
-SRCS = printf.c ft_wchar_c.c int.c str_c_pointer_wchars.c uns_int.c \
+SRCS = printf.c conversions.c parsing.c ft_wchar_c.c int.c str_c_pointer_wchars.c uns_int.c \
 		int_flag_no_minus.c int_flag_minus.c uns_int_flag_minus.c uns_int_flag_no_minus.c
 
 OBJS = $(SRCS:.c=.o)
@@ -20,7 +20,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME) 
 
 $(NAME):
-	@gcc -c libft/*.c -I libft/libft.h
+	@gcc -c -Wall -Wextra -Werror libft/*.c -I libft/libft.h
 	@gcc -c $(SRCS)
 	@ar rc $(NAME) *.o
 

@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-void	ft_flag_no_minus_uns_int_0(t_struc *struc, int d, char *p, int *i)
+void	ft_flag_no_minus_uns_int_0(t_struc *struc)
 {
 	if (struc->noll && struc->precision)
 	{
@@ -22,6 +22,18 @@ void	ft_flag_no_minus_uns_int_0(t_struc *struc, int d, char *p, int *i)
 			struc->calc_width--;
 		}
 	}
+	else if (struc->noll)
+	{
+		while (struc->calc_width > 0 && ++struc->i)
+		{
+			write(1, "0", 1);
+			struc->calc_width--;
+		}
+	}
+}
+
+void	ft_flag_no_minus_uns_int_1(t_struc *struc, int d, char *p, int *i)
+{
 	while (struc->calc_width > 0 && ++struc->i)
 	{
 		write(1, " ", 1);
@@ -41,7 +53,7 @@ void	ft_flag_no_minus_uns_int_0(t_struc *struc, int d, char *p, int *i)
 	}
 }
 
-void	ft_flag_no_minus_uns_int_1(t_struc *struc, int d)
+void	ft_flag_no_minus_uns_int_2(t_struc *struc, int d)
 {
 	if (struc->noll && d)
 	{
@@ -57,8 +69,9 @@ void	ft_flag_no_minus_uns_int(t_struc *struc,
 		char *str, int d, char *p, int *i)
 {
 	struc->flag_uns_int = 1;
-	ft_flag_no_minus_uns_int_0(struc, d, p, i);
-	ft_flag_no_minus_uns_int_1(struc, d);
+	ft_flag_no_minus_uns_int_0(struc);
+	ft_flag_no_minus_uns_int_1(struc, d, p, i);
+	ft_flag_no_minus_uns_int_2(struc, d);
 	if (struc->hash && d > 0 && (p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
 		write(1, "0", 1);
 	else if (struc->hash && d == 0 && struc->precision &&

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_len_uns(unsigned long long value, int base)
+int		ft_len_uns(unsigned long long value, int base)
 {
 	unsigned long long len;
 

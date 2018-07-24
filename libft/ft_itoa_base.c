@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_len(intmax_t value, int base)
+int			ft_len(intmax_t value, int base)
 {
 	intmax_t len;
 
@@ -35,7 +35,7 @@ intmax_t	ft_abs(intmax_t value)
 	return (value);
 }
 
-char	*ft_itoa_base(intmax_t value, int base, int size)
+char		*ft_itoa_base(intmax_t value, int base, int size)
 {
 	intmax_t	nbr;
 	int			len;
