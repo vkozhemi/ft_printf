@@ -16,9 +16,9 @@ void	ft_flag_minus_uns_int_0(t_struc *struc, int d, char *p, int *i)
 {
 	if (struc->hash && d && (p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
 		write(1, "0", 1);
-	else if (struc->hash && d == 0 && struc->precision &&
-			(p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
-		write(1, "0", 1);
+	// else if (struc->hash && d == 0 && struc->precision &&
+	// 		(p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
+	// 	write(1, "0", 1);
 	if (struc->hash && p[*i] == 'x' && d)
 	{
 		write(1, "0x", 2);
@@ -39,6 +39,9 @@ void	ft_flag_minus_uns_int(t_struc *struc, char *str, int d, char *p, int *i)
 		write(1, "0", 1);
 		struc->calc_precision--;
 	}
+	if (struc->hash && d == 0 && struc->precision == 0 &&
+		struc->flag_precision && ++struc->i)
+		write(1, "0", 1);
 	if (struc->precision == 0 && d == 0 && struc->flag_precision)
 		write(1, "", 0);
 	else

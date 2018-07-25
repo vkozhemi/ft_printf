@@ -15,12 +15,79 @@
 void	ft_str(va_list ap, t_struc *struc)
 {
 	int		i;
+	int		counter;
 	char	*str;
+	int		j;
 
 	i = 0;
+	counter = 0;
 	str = va_arg(ap, char *);
-	ft_putstr(str);
-	struc->count += ft_strlen(str) + i;
+	j = ft_strlen(str);
+	if (struc->precision || struc->flag_precision)
+	{
+		if (struc->precision > j)
+			struc->precision = j;
+		else
+			j = struc->precision;
+	}
+	else
+		struc->precision = j;
+	if (struc->minus)
+	{
+		if (struc->width || struc->width == 0)
+		{
+			struc->calc_width = struc->width - j;
+			if (struc->calc_width < 0)
+				struc->calc_width = 0;
+			while (str[i] && i < struc->precision)
+			{
+				write(1, &str[i], 1);
+					i++;
+			}
+			while (struc->calc_width && ++struc->i)
+			{
+				write(1, " ", 1);
+				struc->calc_width--;
+			}
+			struc->count += i + struc->i;
+		}
+		// else
+		// {
+		// 	ft_putstr(str);
+		// 	struc->count += ft_strlen(str) + struc->i;
+		// }
+	}
+	else if (struc->minus == 0)
+	{
+		if (struc->width)
+		{
+			struc->calc_width = struc->width - j;
+			if (struc->calc_width < 0)
+				struc->calc_width = 0;
+			while (struc->calc_width && ++struc->i)
+			{
+				write(1, " ", 1);
+				struc->calc_width--;
+			}
+			struc->count += struc->i;
+		}
+		if (struc->precision == 0 && struc->flag_precision)
+			write(1, "", 0);
+		else if (struc->precision)
+		{
+			while (str[i] && i < struc->precision)
+			{
+				write(1, &str[i], 1);
+				i++;
+			}
+			struc->count += i;
+		}
+		else
+		{
+			ft_putstr(str);
+			struc->count += ft_strlen(str);
+		}
+	}
 }
 
 void	ft_char(va_list ap, t_struc *struc)
@@ -31,7 +98,42 @@ void	ft_char(va_list ap, t_struc *struc)
 	i = 0;
 	i++;
 	c = va_arg(ap, int);
-	ft_putchar(c);
+	if (struc->minus)
+	{
+		write(1, &c, 1);
+		if (struc->width)
+		{
+			struc->width -= 1;
+			while (struc->width && ++struc->i)
+			{
+				write(1, " ", 1);
+				struc->width--;
+			}
+		}
+		struc->count += struc->i;
+	}
+	else if (struc->minus == 0)
+	{
+		if (struc->width)
+		{
+			struc->width -= 1;
+			while (struc->width && ++struc->i)
+			{
+				if (struc->noll)
+					write(1, "0", 1);
+				else
+					write(1, " ", 1);
+				struc->width--;
+			}
+		}
+		write(1, &c, 1);
+		struc->count += struc->i;
+	}
+	else
+	{
+		write(1, &c, 1);
+		struc->count += struc->i;
+	}
 	struc->count += i;
 }
 

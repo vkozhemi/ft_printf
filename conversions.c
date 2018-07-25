@@ -67,6 +67,46 @@ void	ft_u_x_o(char *p, int *i, va_list ap, t_struc *struc)
 		ft_uns_int(va_arg(ap, unsigned int), struc, p, i);
 }
 
+void	ft_percent(t_struc *struc)
+{
+	if (struc->minus)
+	{
+		write(1, "%", 1);
+		if (struc->width)
+		{
+			struc->width -= 1;
+			while (struc->width && ++struc->i)
+			{
+				write(1, " ", 1);
+				struc->width--;
+			}
+		}
+		struc->i += 1;
+		struc->count += struc->i;
+	}
+	else if (struc->minus == 0)
+	{
+		if (struc->width)
+		{
+			struc->width -= 1;
+			while (struc->width && ++struc->i)
+			{
+				if (struc->noll)
+					write(1, "0", 1);
+				else
+					write(1, " ", 1);
+				struc->width--;
+			}
+		}
+		write(1, "%", 1);
+		struc->i += 1;
+		struc->count += struc->i;
+	}
+}
+
+
+
+
 void	ft_conversions(char *p, int *i, va_list ap, t_struc *struc)
 {
 	wchar_t value;
@@ -91,4 +131,6 @@ void	ft_conversions(char *p, int *i, va_list ap, t_struc *struc)
 		ft_wchar_s(ap, struc);
 	else if (p[*i] == 'p')
 		ft_pointer(ap, struc);
+	else if (p[*i] == '%')
+		ft_percent(struc);
 }

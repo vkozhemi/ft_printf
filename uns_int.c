@@ -29,11 +29,11 @@ char	ft_choose_base(uintmax_t d, t_struc *struc, char **str)
 	return (**str);
 }
 
-void	ft_find_precision_uns_int(t_struc *struc, char *str, char *p, int *i)
+void	ft_find_precision_uns_int(t_struc *struc, char *str, int d, char *p, int *i)
 {
 	if (struc->precision)
 	{
-		if ((p[*i] == 'O' || p[*i] == 'o') && struc->hash)
+		if ((p[*i] == 'O' || p[*i] == 'o') && struc->hash && d)
 			struc->calc_precision = struc->precision - ft_strlen(str) - 1;
 		else
 			struc->calc_precision = struc->precision - ft_strlen(str);
@@ -48,16 +48,23 @@ void	ft_width_uns_int(t_struc *struc, char *str, int d, char *p, int *i)
 {
 	if (struc->width)
 	{
-		if (struc->width && d == 0 && struc->precision == 0 &&
-			struc->flag_precision)
-			struc->calc_width = struc->width;
-		else if (struc->hash && (p[*i] == 'x' || p[*i] == 'X'))
+		if (struc->hash && (p[*i] == 'x' || p[*i] == 'X'))
 			struc->calc_width = struc->width - ft_strlen(str) -
 			struc->calc_precision - 2;
+		else if (struc->hash && d == 0 && struc->precision &&
+			(p[*i] == 'o' || p[*i] == 'O'))
+			struc->calc_width = struc->width - ft_strlen(str) -
+			struc->calc_precision;
+		else if (struc->hash && d == 0 && (p[*i] == 'o' || p[*i] == 'O'))
+			struc->calc_width = struc->width - ft_strlen(str) -
+			struc->calc_precision;
 		else if (struc->hash && (p[*i] == 'o' || p[*i] == 'O'))
 			struc->calc_width = struc->width - ft_strlen(str) -
 			struc->calc_precision - 1;
 		else if (d == 0 && struc->precision == 0 && struc->flag_precision)
+			struc->calc_width = struc->width;
+		else if (struc->width && d == 0 && struc->precision == 0 &&
+			struc->flag_precision)
 			struc->calc_width = struc->width;
 		else
 			struc->calc_width = struc->width - ft_strlen(str) -
@@ -88,7 +95,7 @@ void	ft_uns_int(uintmax_t d, t_struc *struc, char *p, int *i)
 	str = NULL;
 	struc->calc_precision = 0;
 	ft_choose_base(d, struc, &str);
-	ft_find_precision_uns_int(struc, str, p, i);
+	ft_find_precision_uns_int(struc, str, d, p, i);
 	ft_width_uns_int(struc, str, d, p, i);
 	if (struc->minus)
 		ft_flag_minus_uns_int(struc, str, d, p, i);
