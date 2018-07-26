@@ -44,7 +44,7 @@ void	ft_str(va_list ap, t_struc *struc)
 			while (str[i] && i < struc->precision)
 			{
 				write(1, &str[i], 1);
-					i++;
+				i++;
 			}
 			while (struc->calc_width && ++struc->i)
 			{
@@ -141,28 +141,114 @@ void	ft_char(va_list ap, t_struc *struc)
 
 void	ft_pointer(va_list ap, t_struc *struc)
 {
-	int		i;
-	char	*str;
+	int					i;
+	char				*str;
+	unsigned long int	j;
 
 	i = 0;
+	j = va_arg(ap, unsigned long int);
 	str = ft_itoa_base(va_arg(ap, unsigned long int), 16, 1);
+	if (!str)
+
 	while (str[i] != '%')
 		i++;
 	ft_putstr("0x");
-	ft_putstr(str);
-	struc->count += ft_strlen(str) + 2;
+	if (j == 0)
+	{
+		write(1, "", 0);
+		struc->count += 2;
+	}
+	else
+	{
+		ft_putstr(str);
+		struc->count += ft_strlen(str) + 2;
+	}
 }
 
 void	ft_wchar_s(va_list ap, t_struc *struc)
 {
 	int		i;
+	int		j;
 	wchar_t	*str;
 
 	i = 0;
+	j = 0;
 	str = va_arg(ap, wchar_t*);
-	while (str[i])
+	// if (!str)
+	// 	str = ft_strdup("(null)");
+	while (str[j])
+		j++;
+	if (struc->precision || struc->flag_precision)
 	{
-		ft_wchar_c(str[i], struc);
-		i++;
+		if (struc->precision > j)
+			struc->precision = j;
+		else
+			j = struc->precision;
 	}
+	else
+		struc->precision = j;
+	if (struc->minus)
+	{
+		if (struc->width || struc->width == 0)
+		{
+			struc->calc_width = struc->width - j;
+			if (struc->calc_width < 0)
+				struc->calc_width = 0;
+			while (str[i] && i < struc->precision)
+			{
+				ft_wchar_c(str[i], struc);
+				i++;
+			}
+			while (struc->calc_width && ++struc->i)
+			{
+				write(1, " ", 1);
+				struc->calc_width--;
+			}
+			struc->count += i + struc->i;
+		}
+	}
+	else if (struc->minus == 0)
+	{
+		if (struc->width)
+		{
+			struc->calc_width = struc->width - j;
+			if (struc->calc_width < 0)
+				struc->calc_width = 0;
+			while (struc->calc_width && ++struc->i)
+			{
+				if (struc->noll)
+					write(1, "0", 1);
+				else
+					write(1, " ", 1);
+				struc->calc_width--;
+			}
+			struc->count += struc->i;
+		}
+		if (struc->precision == 0 && struc->flag_precision)
+			write(1, "", 0);
+		else if (struc->precision)
+		{
+			while (str[i] && i < struc->precision)
+			{
+				ft_wchar_c(str[i], struc);
+				i++;
+			}
+			struc->count += i;
+		}
+		else
+		{
+			while (str[i])
+			{
+				ft_wchar_c(str[i], struc);
+				i++;
+			}
+			struc->count += i;
+		}
+	}
+
+	// while (str[i])
+	// {
+	// 	ft_wchar_c(str[i], struc);
+	// 	i++;
+	// }
 }
