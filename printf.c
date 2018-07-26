@@ -59,21 +59,13 @@ void	ft_call_pars(char *fmt, va_list ap, t_struc *struc)
 	{
 		if (p[i] == '%')
 		{
-			// if (p[i + 1] != '%')
-			// {
 				i++;
 				ft_flags(p, &i, struc);
 				ft_field_width(p, &i, struc);
 				ft_precision(p, &i, struc);
 				ft_size_modifier(p, &i, struc);
 				ft_conversions(p, &i, ap, struc);
-			// }
 		}
-		// else if (p[i] == '%' && p[i + 1] == '%')
-		// {
-		// 	write(1, "%%", 2);
-		// 	struc->count += 2;
-		// }
 		else if (++struc->count)
 			write(1, &p[i], 1);
 		i++;

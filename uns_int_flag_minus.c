@@ -12,13 +12,10 @@
 
 #include "printf.h"
 
-void	ft_flag_minus_uns_int_0(t_struc *struc, int d, char *p, int *i)
+void	ft_flag_minus_uns_int_0(t_struc *struc, uintmax_t d, char *p, int *i)
 {
 	if (struc->hash && d && (p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
 		write(1, "0", 1);
-	// else if (struc->hash && d == 0 && struc->precision &&
-	// 		(p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
-	// 	write(1, "0", 1);
 	if (struc->hash && p[*i] == 'x' && d)
 	{
 		write(1, "0x", 2);
@@ -31,7 +28,8 @@ void	ft_flag_minus_uns_int_0(t_struc *struc, int d, char *p, int *i)
 	}
 }
 
-void	ft_flag_minus_uns_int(t_struc *struc, char *str, int d, char *p, int *i)
+void	ft_flag_minus_uns_int(t_struc *struc, char *str, uintmax_t d,
+		char *p, int *i)
 {
 	ft_flag_minus_uns_int_0(struc, d, p, i);
 	while (struc->calc_precision > 0 && ++struc->i)

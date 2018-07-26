@@ -19,8 +19,10 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 # define BUFF_SIZE 1000
+# define MIN_SIZE -9223372036854775807 - 1
 
 typedef struct		s_list
 {

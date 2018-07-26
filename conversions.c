@@ -55,14 +55,16 @@ void	ft_u_x_o(char *p, int *i, va_list ap, t_struc *struc)
 		ft_uns_int(va_arg(ap, unsigned long int), struc, p, i);
 	else if (struc->modifier == 'L')
 		ft_uns_int(va_arg(ap, unsigned long long int), struc, p, i);
-	else if (struc->modifier == 'h')
-		ft_uns_int((short)va_arg(ap, unsigned int), struc, p, i);
+	else if (struc->modifier == 'h' && p[*i] != 'U')
+		ft_uns_int((short)va_arg(ap, unsigned int), struc, p, i);   // ????????????????
 	else if (struc->modifier == 'H')
 		ft_uns_int((unsigned char)va_arg(ap, unsigned int), struc, p, i);
 	else if (struc->modifier == 'j')
 		ft_uns_int(va_arg(ap, uintmax_t), struc, p, i);
 	else if (struc->modifier == 'z')
 		ft_uns_int(va_arg(ap, size_t), struc, p, i);
+	else if (p[*i] == 'U' || p[*i] == 'O')
+		ft_uns_int(va_arg(ap, unsigned long int), struc, p, i);
 	else
 		ft_uns_int(va_arg(ap, unsigned int), struc, p, i);
 }

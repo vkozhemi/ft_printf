@@ -13,6 +13,7 @@
 #ifndef PRINTF_H
 # define PRINTF_H
 
+
 # include <stdio.h>
 # include "libft/libft.h"
 # include <unistd.h>
@@ -70,18 +71,13 @@ void	ft_wchar_c32(unsigned int v, unsigned char octet, t_struc *struc);
 void	ft_wchar_s(va_list ap, t_struc *struc);
 char	ft_plus_minus_int(intmax_t d, char **str);
 void	ft_find_precision_int(t_struc *struc, char *str);
-void	ft_width_int(t_struc *struc, char *str, int d);
-void	ft_flag_minus_int_0(t_struc *struc, int d);
-void	ft_flag_minus_int(t_struc *struc, char *str, int d);
-void	ft_flag_no_minus_int_0(t_struc *struc, int d);
-void	ft_flag_no_minus_int_1(t_struc *struc, int d);
-void	ft_flag_no_minus_int_2(t_struc *struc, int d);
-void	ft_flag_no_minus_int_3(t_struc *struc, int d);
-void	ft_flag_no_minus_int(t_struc *struc, char *str, int d);
-void	ft_count_int(t_struc *struc, char *str, int d);
-void	ft_flag_minus_uns_int(t_struc *struc, char *str, int d,
+void	ft_width_int(t_struc *struc, char *str, intmax_t d);
+void	ft_flag_minus_int(t_struc *struc, char *str, intmax_t d);
+void	ft_flag_no_minus_int(t_struc *struc, char *str, intmax_t d);
+void	ft_count_int(t_struc *struc, char *str, intmax_t d);
+void	ft_flag_minus_uns_int(t_struc *struc, char *str, uintmax_t d,
 		char *p, int *i);
-void	ft_flag_no_minus_uns_int(t_struc *struc, char *str, int d,
+void	ft_flag_no_minus_uns_int(t_struc *struc, char *str, uintmax_t d,
 		char *p, int *i);
 
 #endif

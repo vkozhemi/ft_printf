@@ -20,8 +20,11 @@ void	ft_str(va_list ap, t_struc *struc)
 	int		j;
 
 	i = 0;
+
 	counter = 0;
 	str = va_arg(ap, char *);
+	if (!str)
+		str = ft_strdup("(null)");
 	j = ft_strlen(str);
 	if (struc->precision || struc->flag_precision)
 	{
@@ -51,11 +54,6 @@ void	ft_str(va_list ap, t_struc *struc)
 			}
 			struc->count += i + struc->i;
 		}
-		// else
-		// {
-		// 	ft_putstr(str);
-		// 	struc->count += ft_strlen(str) + struc->i;
-		// }
 	}
 	else if (struc->minus == 0)
 	{
@@ -66,7 +64,10 @@ void	ft_str(va_list ap, t_struc *struc)
 				struc->calc_width = 0;
 			while (struc->calc_width && ++struc->i)
 			{
-				write(1, " ", 1);
+				if (struc->noll)
+					write(1, "0", 1);
+				else
+					write(1, " ", 1);
 				struc->calc_width--;
 			}
 			struc->count += struc->i;
@@ -98,6 +99,8 @@ void	ft_char(va_list ap, t_struc *struc)
 	i = 0;
 	i++;
 	c = va_arg(ap, int);
+	if (!c)
+		c = '0';
 	if (struc->minus)
 	{
 		write(1, &c, 1);

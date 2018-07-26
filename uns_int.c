@@ -29,7 +29,8 @@ char	ft_choose_base(uintmax_t d, t_struc *struc, char **str)
 	return (**str);
 }
 
-void	ft_find_precision_uns_int(t_struc *struc, char *str, int d, char *p, int *i)
+void	ft_find_precision_uns_int(t_struc *struc, char *str, uintmax_t d,
+		char *p, int *i)
 {
 	if (struc->precision)
 	{
@@ -44,7 +45,8 @@ void	ft_find_precision_uns_int(t_struc *struc, char *str, int d, char *p, int *i
 		struc->calc_precision = 0;
 }
 
-void	ft_width_uns_int(t_struc *struc, char *str, int d, char *p, int *i)
+void	ft_width_uns_int(t_struc *struc, char *str, uintmax_t d,
+		char *p, int *i)
 {
 	if (struc->width)
 	{
@@ -76,7 +78,7 @@ void	ft_width_uns_int(t_struc *struc, char *str, int d, char *p, int *i)
 		struc->calc_width = 0;
 }
 
-void	ft_count_uns_int(t_struc *struc, char *str, int d)
+void	ft_count_uns_int(t_struc *struc, char *str, uintmax_t d)
 {
 	if (d == 0 && struc->precision)
 		struc->count += struc->i + ft_strlen(str);

@@ -33,7 +33,7 @@ void	ft_find_precision_int(t_struc *struc, char *str)
 		struc->calc_precision = 0;
 }
 
-void	ft_width_int(t_struc *struc, char *str, int d)
+void	ft_width_int(t_struc *struc, char *str, intmax_t d)
 {
 	if (struc->width)
 	{
@@ -59,7 +59,7 @@ void	ft_width_int(t_struc *struc, char *str, int d)
 		struc->calc_width = 0;
 }
 
-void	ft_count_int(t_struc *struc, char *str, int d)
+void	ft_count_int(t_struc *struc, char *str, intmax_t d)
 {
 	if (d == 0 && struc->precision)
 		struc->count += struc->i + ft_strlen(str);
