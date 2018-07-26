@@ -66,6 +66,9 @@ void	ft_flag_no_minus_uns_int(t_struc *struc,
 	ft_flag_no_minus_uns_int_2(struc, d);
 	if (struc->hash && d > 0 && (p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
 		write(1, "0", 1);
+	else if (struc->hash && d == 0 && struc->flag_precision == 1
+		&& (p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
+		write(1, "0", 1);
 	else if (struc->hash && d == 0 && struc->noll && struc->precision == 0
 		&& (p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
 		write(1, "0", 1);

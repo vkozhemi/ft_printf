@@ -20,7 +20,6 @@ void	ft_str(va_list ap, t_struc *struc)
 	int		j;
 
 	i = 0;
-
 	counter = 0;
 	str = va_arg(ap, char *);
 	if (!str)
@@ -100,7 +99,7 @@ void	ft_char(va_list ap, t_struc *struc)
 	i++;
 	c = va_arg(ap, int);
 	if (!c)
-		c = '0';
+		c = '\0';
 	if (struc->minus)
 	{
 		write(1, &c, 1);
