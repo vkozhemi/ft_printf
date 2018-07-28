@@ -57,6 +57,8 @@ void	ft_u_x_o(char *p, int *i, va_list ap, t_struc *struc)
 		ft_uns_int(va_arg(ap, unsigned long long int), struc, p, i);
 	else if (struc->modifier == 'h' && p[*i] != 'U')
 		ft_uns_int((short)va_arg(ap, unsigned int), struc, p, i);   // ????????????????
+	// else if (struc->modifier == 'h' && p[*i] == 'u')
+	// 	ft_uns_int((short)va_arg(ap, unsigned int), struc, p, i);
 	else if (struc->modifier == 'H')
 		ft_uns_int((unsigned char)va_arg(ap, unsigned int), struc, p, i);
 	else if (struc->modifier == 'j')
@@ -104,10 +106,8 @@ void	ft_percent(t_struc *struc)
 		struc->i += 1;
 		struc->count += struc->i;
 	}
+	ft_bzero(struc, sizeof(int) * 13 + sizeof(char) * 3);
 }
-
-
-
 
 void	ft_conversions(char *p, int *i, va_list ap, t_struc *struc)
 {

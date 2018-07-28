@@ -50,7 +50,10 @@ void	ft_width_uns_int(t_struc *struc, char *str, uintmax_t d,
 {
 	if (struc->width)
 	{
-		if (struc->hash && (p[*i] == 'x' || p[*i] == 'X'))
+		if (struc->hash && d == 0 && (p[*i] == 'x' || p[*i] == 'X'))
+			struc->calc_width = struc->width - ft_strlen(str) -
+			struc->calc_precision;
+		else if (struc->hash && (p[*i] == 'x' || p[*i] == 'X'))
 			struc->calc_width = struc->width - ft_strlen(str) -
 			struc->calc_precision - 2;
 		else if (struc->hash && d == 0 && struc->precision &&

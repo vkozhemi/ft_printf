@@ -25,7 +25,7 @@ $(NAME):
 	@ar rc $(NAME) *.o
 
 test:
-	@gcc -g -L. -lftprintf $(SRCS) main.c -o $(TEST)
+	@gcc -g -L. -lftprintf $(SRCS) ../printf1/main.c -o $(TEST)
 
 clean:
 	@rm -rf *.o libft/*.o

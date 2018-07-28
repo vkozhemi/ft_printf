@@ -66,7 +66,7 @@ void	ft_flag_no_minus_int_3(t_struc *struc, intmax_t d)
 
 void	ft_flag_no_minus_int(t_struc *struc, char *str, intmax_t d)
 {
-	if (struc->space && struc->noll && struc->calc_width && d > 0 && ++struc->i)
+	if (struc->space && struc->noll && struc->calc_width && d >= 0 && ++struc->i)
 		write(1, " ", 1);
 	else if (struc->space && struc->plus == 0 && d > 0 && ++struc->i)
 		write(1, " ", 1);

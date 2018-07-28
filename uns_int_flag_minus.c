@@ -38,8 +38,11 @@ void	ft_flag_minus_uns_int(t_struc *struc, char *str, uintmax_t d,
 		struc->calc_precision--;
 	}
 	if (struc->hash && d == 0 && struc->precision == 0 &&
-		struc->flag_precision && ++struc->i)
+		struc->flag_precision && (p[*i] != 'X' || p[*i] != 'x') && ++struc->i)
 		write(1, "0", 1);
+	if (struc->hash && d == 0 && struc->precision == 0 &&
+		struc->flag_precision && (p[*i] == 'X' || p[*i] == 'x') && ++struc->i)
+		write(1, " ", 1);
 	if (struc->precision == 0 && d == 0 && struc->flag_precision)
 		write(1, "", 0);
 	else
