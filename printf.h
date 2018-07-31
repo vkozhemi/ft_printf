@@ -33,6 +33,7 @@ typedef struct	s_struc
 	int			calc_width;
 	int			precision;
 	int			calc_precision;
+	int			calc_prec;
 	int			flag_precision;
 	int			flag_int;
 	int			flag_uns_int;
@@ -41,6 +42,10 @@ typedef struct	s_struc
 	char		str;
 	int			i;
 	int			len_wchar;
+	int			len_wchar1;
+	int			destruct;
+	int 		current_count;
+	int 		flag_wchar;
 	size_t		count;
 }				t_struc;
 

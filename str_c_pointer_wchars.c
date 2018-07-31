@@ -259,16 +259,45 @@ void	ft_len_wchar(wchar_t value, t_struc *struc)
 	}
 }
 
+void	ft_len_wchar1(wchar_t value, t_struc *struc)
+{
+	unsigned int	v;
+	unsigned char	octet;
+	int				size;
+	int				i;
+
+	if (MB_CUR_MAX == 1)
+		struc->len_wchar++;
+	else
+	{
+		v = value;
+		size = ft_size_bin(value);
+		i = 0;
+		octet = 0;
+		if (size <= 7)
+			struc->len_wchar1 = 1;
+		else if (size <= 11)
+			struc->len_wchar1 = 2;
+		else if (size <= 16)
+			struc->len_wchar1 = 3;
+		else
+			struc->len_wchar1 = 4;
+	}
+}
+
 void	ft_wchar_s(va_list ap, t_struc *struc)
 {
 	int		i;
 	int		j;
 	wchar_t	*str;
+	int		current_count;
 
 	i = 0;
 	j = 0;
+	struc->current_count = 0;
 	str = va_arg(ap, wchar_t*);
-
+	struc->destruct = 0;
+	struc->flag_wchar = 0;
 	
 	if (!str)
 	{
@@ -310,37 +339,57 @@ void	ft_wchar_s(va_list ap, t_struc *struc)
 		j++;
 	}
 
-	// printf("j = %d\n", j);
-	// printf("struc->precision = %d\n", struc->precision);
 	if (struc->precision || struc->flag_precision)
 	{
 		struc->calc_precision = struc->precision;
-		if (struc->calc_precision > j)
-			struc->calc_precision = j;
+		if (struc->calc_precision > struc->len_wchar)
+			struc->calc_precision = struc->len_wchar;
 		else
-			j = struc->calc_precision;
+			struc->len_wchar = struc->calc_precision;
 	}
 	else
-		struc->calc_precision = j;
+		struc->calc_precision = struc->len_wchar;
 
 	if (struc->width || struc->width == 0)
 	{
 		if ((struc->precision < struc->len_wchar) && struc->flag_precision)
-			struc->calc_width = struc->width - j;
+			struc->calc_width = struc->width - struc->len_wchar;
 		else
 			struc->calc_width = struc->width - struc->len_wchar;
 		if (struc->calc_width < 0)
 			struc->calc_width = 0;
 	}
-	// printf("struc->calc_precision = %d\n", struc->calc_precision);
-	// printf("struc->calc_width = %d\n", struc->calc_width);
+
 	if (struc->width)
 	{
 		if (struc->minus)
 		{
-			while (str[i] && i < struc->calc_precision)
+			while (str[i] && struc->calc_precision > 0 && struc->calc_precision >= struc->len_wchar1)
 			{
-				ft_wchar_c(str[i], struc);
+				if (struc->precision == 1)
+				{
+					ft_len_wchar1(str[i], struc);
+					if (struc->calc_precision == struc->len_wchar1)
+					{
+						ft_wchar_c(str[i], struc);
+						struc->flag_wchar = 1;
+					}
+					else if (struc->flag_wchar == 0 && ++struc->count)
+					{
+						if (struc->noll)
+							write(1, "0", 1);
+						else
+							write(1, " ", 1);
+					}
+				}
+				else
+				{
+					struc->current_count = struc->count;
+					ft_wchar_c(str[i], struc);
+					struc->destruct = struc->count - struc->current_count;
+					struc->calc_precision = struc->calc_precision - struc->destruct;
+					ft_len_wchar1(str[i + 1], struc);
+				}
 				i++;
 			}
 			while (struc->calc_width && ++struc->count)
@@ -363,21 +412,66 @@ void	ft_wchar_s(va_list ap, t_struc *struc)
 				write(1, "", 0);
 			else if (struc->precision)
 			{
-				while (str[i] && i < struc->calc_precision)
+				while (str[i] && struc->calc_precision > 0 && struc->calc_precision >= struc->len_wchar1)
 				{
-					ft_wchar_c(str[i], struc);
+					if (struc->precision == 1)
+					{
+						ft_len_wchar1(str[i], struc);
+						if (struc->calc_precision == struc->len_wchar1)
+						{
+							ft_wchar_c(str[i], struc);
+							struc->flag_wchar = 1;
+						}
+						else if (struc->flag_wchar == 0 && ++struc->count)
+						{
+							if (struc->noll)
+								write(1, "0", 1);
+							else
+								write(1, " ", 1);
+						}
+					}
+					else
+					{
+						struc->current_count = struc->count;
+						ft_wchar_c(str[i], struc);
+						struc->destruct = struc->count - struc->current_count;
+						struc->calc_precision = struc->calc_precision - struc->destruct;
+						ft_len_wchar1(str[i + 1], struc);
+					}
 					i++;
 				}
 			}
 			else
 			{
-				while (str[i] && i < struc->calc_precision)
+				while (str[i] && struc->calc_precision)
 				{
 					ft_wchar_c(str[i], struc);
+					struc->calc_precision = struc->calc_precision - struc->count;
 					i++;
 				}
 			}
 
+		}
+	}
+	else if (struc->flag_precision)
+	{
+		while (str[i] && struc->calc_precision > 0 && struc->calc_precision >= struc->len_wchar1)
+		{
+			if (struc->precision == 1)
+			{
+				ft_len_wchar1(str[i], struc);
+				if (struc->calc_precision == struc->len_wchar1)
+					ft_wchar_c(str[i], struc);
+			}
+			else
+			{
+				struc->current_count = struc->count;
+				ft_wchar_c(str[i], struc);
+				struc->destruct = struc->count - struc->current_count;
+				struc->calc_precision = struc->calc_precision - struc->destruct;
+				ft_len_wchar1(str[i + 1], struc);
+			}
+			i++;
 		}
 	}
 	else
