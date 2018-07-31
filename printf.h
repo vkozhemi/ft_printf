@@ -40,6 +40,7 @@ typedef struct	s_struc
 	char		conversions;
 	char		str;
 	int			i;
+	int			len_wchar;
 	size_t		count;
 }				t_struc;
 
@@ -61,7 +62,7 @@ void	ft_uns_oct(uintmax_t d, t_struc *struc);
 void	ft_uns_hex(uintmax_t d, t_struc *struc);
 void	ft_uns_hexb(va_list ap, t_struc *struc);
 void	ft_pointer(va_list ap, t_struc *struc);
-void	ft_char(va_list ap, t_struc *struc);
+void	ft_char(char c, t_struc *struc);
 void	ft_str(va_list ap, t_struc *struc);
 int		ft_size_bin(wchar_t value);
 void	ft_wchar_c(wchar_t value, t_struc *struc);

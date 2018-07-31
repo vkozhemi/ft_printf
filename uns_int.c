@@ -107,5 +107,5 @@ void	ft_uns_int(uintmax_t d, t_struc *struc, char *p, int *i)
 	else
 		ft_flag_no_minus_uns_int(struc, str, d, p, i);
 	ft_count_uns_int(struc, str, d);
-	ft_bzero(struc, sizeof(int) * 13 + sizeof(char) * 3);
+	ft_bzero(struc, sizeof(int) * 14 + sizeof(char) * 3);
 }

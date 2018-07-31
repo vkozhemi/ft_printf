@@ -86,5 +86,5 @@ void	ft_int(intmax_t d, t_struc *struc)
 	else
 		ft_flag_no_minus_int(struc, str, d);
 	ft_count_int(struc, str, d);
-	ft_bzero(struc, sizeof(int) * 13 + sizeof(char) * 3);
+	ft_bzero(struc, sizeof(int) * 14 + sizeof(char) * 3);
 }

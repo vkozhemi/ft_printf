@@ -14,13 +14,18 @@
 
 void	ft_c(va_list ap, t_struc *struc, wchar_t value)
 {
+	char c;
+	
 	if (struc->modifier == 'l')
 	{
 		value = va_arg(ap, wchar_t);
 		ft_wchar_c(value, struc);
 	}
 	else
-		ft_char(ap, struc);
+	{
+		c = va_arg(ap, int);
+		ft_char(c, struc);
+	}
 }
 
 void	ft_s(va_list ap, t_struc *struc)
@@ -56,9 +61,9 @@ void	ft_u_x_o(char *p, int *i, va_list ap, t_struc *struc)
 	else if (struc->modifier == 'L')
 		ft_uns_int(va_arg(ap, unsigned long long int), struc, p, i);
 	else if (struc->modifier == 'h' && p[*i] != 'U')
-		ft_uns_int((short)va_arg(ap, unsigned int), struc, p, i);   // ????????????????
-	// else if (struc->modifier == 'h' && p[*i] == 'u')
-	// 	ft_uns_int((short)va_arg(ap, unsigned int), struc, p, i);
+		ft_uns_int((unsigned short)va_arg(ap, unsigned int), struc, p, i);
+	else if (struc->modifier == 'H' && (p[*i] == 'O' || p[*i] == 'U'))
+		ft_uns_int((unsigned int)va_arg(ap, unsigned int), struc, p, i);
 	else if (struc->modifier == 'H')
 		ft_uns_int((unsigned char)va_arg(ap, unsigned int), struc, p, i);
 	else if (struc->modifier == 'j')
@@ -106,7 +111,7 @@ void	ft_percent(t_struc *struc)
 		struc->i += 1;
 		struc->count += struc->i;
 	}
-	ft_bzero(struc, sizeof(int) * 13 + sizeof(char) * 3);
+	ft_bzero(struc, sizeof(int) * 14 + sizeof(char) * 3);
 }
 
 void	ft_conversions(char *p, int *i, va_list ap, t_struc *struc)
