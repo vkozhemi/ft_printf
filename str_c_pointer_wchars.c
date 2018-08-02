@@ -436,8 +436,8 @@ void	ft_wchar_s(va_list ap, t_struc *struc)
 		if (struc->calc_precision > struc->len_wchar)
 			struc->calc_precision = struc->len_wchar;
 		else
-			struc->len_wchar = struc->calc_precision;
-		printf("struc->len_wchar = %d\n", struc->len_wchar);
+			struc->len_wchar = struc->len_wchar1;
+		//printf("struc->len_wchar = %d\n", struc->len_wchar);
 	}
 	else
 		struc->calc_precision = struc->len_wchar;
@@ -451,7 +451,7 @@ void	ft_wchar_s(va_list ap, t_struc *struc)
 		else if ((struc->precision < struc->len_wchar) && struc->flag_precision)
 		{
 			struc->calc_width = struc->width - struc->len_wchar;
-			printf("11111111111\n"); //////
+			//printf("11111111111\n"); //////
 			// printf("struc->width = %d\n", struc->width);
 			// printf("struc->len_wchar2 = %d\n", struc->len_wchar2);
 			// printf("struc->calc_width = %d\n", struc->calc_width);
@@ -470,19 +470,19 @@ void	ft_wchar_s(va_list ap, t_struc *struc)
 			// 	struc->calc_width = struc->width - struc->len_wchar;
 			// 	//printf("222222222222\n"); //////
 			// }
-			printf("222222222222\n");
-			printf("struc->precision = %d\n", struc->precision);
-			printf("struc->len_wchar = %d\n", struc->len_wchar);
-			printf("struc->len_wchar1 = %d\n", struc->len_wchar1);
-			printf("struc->len_wchar2 = %d\n", struc->len_wchar2);
-			printf("struc->len_wchar3 = %d\n", struc->len_wchar3);
-			printf("struc->width = %d\n", struc->width);
-			printf("struc->calc_width = %d\n", struc->calc_width);
+			// printf("222222222222\n");
+			// printf("struc->precision = %d\n", struc->precision);
+			// printf("struc->len_wchar = %d\n", struc->len_wchar);
+			// printf("struc->len_wchar1 = %d\n", struc->len_wchar1);
+			// printf("struc->len_wchar2 = %d\n", struc->len_wchar2);
+			// printf("struc->len_wchar3 = %d\n", struc->len_wchar3);
+			// printf("struc->width = %d\n", struc->width);
+			// printf("struc->calc_width = %d\n", struc->calc_width);
 		}
 		else if ((struc->precision > struc->len_wchar) && struc->flag_precision)
 		{
 			struc->calc_width = struc->width - struc->len_wchar2; //////
-			printf("3333333333333\n");
+			//printf("3333333333333\n");
 			// printf("struc->precision = %d\n", struc->precision);
 			// printf("struc->len_wchar2 = %d\n", struc->len_wchar2);
 			// printf("struc->width = %d\n", struc->width);
