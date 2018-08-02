@@ -88,7 +88,7 @@ void	ft_str(va_list ap, t_struc *struc)
 			struc->count += ft_strlen(str);
 		}
 	}
-	ft_bzero(struc, sizeof(int) * 20 + sizeof(char) * 3);
+	ft_bzero(struc, sizeof(int) * 22 + sizeof(char) * 3);
 }
 
 void	ft_char(char c, t_struc *struc)
@@ -133,7 +133,7 @@ void	ft_char(char c, t_struc *struc)
 		write(1, &c, 1);
 		struc->count++;
 	}
-	ft_bzero(struc, sizeof(int) * 20 + sizeof(char) * 3);
+	ft_bzero(struc, sizeof(int) * 22 + sizeof(char) * 3);
 }
 
 void	ft_pointer(va_list ap, t_struc *struc)
@@ -236,7 +236,7 @@ void	ft_pointer(va_list ap, t_struc *struc)
 			struc->count += 2 + struc->len_p;
 	}
 
-	ft_bzero(struc, sizeof(int) * 20 + sizeof(char) * 3);
+	ft_bzero(struc, sizeof(int) * 22 + sizeof(char) * 3);
 }
 
 void	ft_len_wchar(wchar_t value, t_struc *struc)
