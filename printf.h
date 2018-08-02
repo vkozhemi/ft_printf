@@ -43,9 +43,12 @@ typedef struct	s_struc
 	int			i;
 	int			len_wchar;
 	int			len_wchar1;
+	int			len_wchar2;
+	int			len_wchar3;
 	int			destruct;
 	int 		current_count;
 	int 		flag_wchar;
+	int			len_p;
 	size_t		count;
 }				t_struc;
 

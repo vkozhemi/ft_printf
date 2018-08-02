@@ -6,7 +6,7 @@
 #    By: vkozhemi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/13 18:19:24 by vkozhemi          #+#    #+#              #
-#    Updated: 2018/06/13 18:19:38 by vkozhemi         ###   ########.fr        #
+#    Updated: 2018/08/01 13:10:37 by vkozhemi         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,7 +20,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME) 
 
 $(NAME):
-	@gcc -c -Wall -Wextra -Werror libft/*.c -I libft/libft.h
+	@gcc -c -g -Wall -Wextra -Werror libft/*.c -I libft/libft.h
 	@gcc -c $(SRCS)
 	@ar rc $(NAME) *.o
 
