@@ -111,7 +111,7 @@ void	ft_percent(t_struc *struc)
 		struc->i += 1;
 		struc->count += struc->i;
 	}
-	ft_bzero(struc, sizeof(int) * 14 + sizeof(char) * 3);
+	ft_bzero(struc, sizeof(int) * 22 + sizeof(char) * 3);
 }
 
 void	ft_conversions(char *p, int *i, va_list ap, t_struc *struc)

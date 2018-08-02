@@ -643,11 +643,22 @@ void	ft_wchar_s(va_list ap, t_struc *struc)
 	}
 	else
 	{
-		while (str[i] && i < struc->calc_precision)
+		//printf("struc->calc_precision = %d\n", struc->calc_precision);
+		i = 0;
+		j = struc->calc_precision;
+		while (str[i] && i < j)
 		{
+			//printf("i = %d\n", i);
+			//printf("struc->calc_precision = %d\n", struc->calc_precision);
 			ft_wchar_c(str[i], struc);
+			// ft_wchar_c(str[i + 1], struc);
+			// ft_wchar_c(str[i + 2], struc);
+			// ft_wchar_c(str[i + 3], struc);
 			i++;
+			// printf("i2 = %d\n", i);
+			// printf("struc->calc_precision2 = %d\n", struc->calc_precision);
 		}
+		//printf("i3 = %d\n", i);
 	}
 	ft_bzero(struc, sizeof(int) * 22 + sizeof(char) * 3);
 }

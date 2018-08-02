@@ -94,7 +94,7 @@ void	ft_wchar_c(wchar_t value, t_struc *struc)
 
 	if (MB_CUR_MAX == 1)
 	{
-		if (value > 127)
+		if (value >= 127)
 			struc->count = -1;
 		else
 			ft_char(value, struc);
