@@ -40,7 +40,7 @@ char		*ft_itoa_base_plus(intmax_t value, int base, int size)
 	char		*base_string;
 
 	if (value == MIN_SIZE)
-		return ("9223372036854775808");
+		return (ft_strdup("9223372036854775808"));
 	nbr = ft_abs_plus(value);
 	len = ft_len_plus(value, base);
 	if (size == 0)

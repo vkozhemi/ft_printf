@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-char	ft_choose_base(uintmax_t d, t_struc *struc, char **str)
+void	ft_choose_base(uintmax_t d, t_struc *struc, char **str)
 {
 	if (struc->conversions == 'u')
 		*str = ft_itoa_base_uns(d, 10, 0);
@@ -26,7 +26,6 @@ char	ft_choose_base(uintmax_t d, t_struc *struc, char **str)
 		*str = ft_itoa_base_uns(d, 16, 1);
 	else if (struc->conversions == 'X')
 		*str = ft_itoa_base_uns(d, 16, 0);
-	return (**str);
 }
 
 void	ft_find_precision_uns_int(t_struc *struc, char *str, uintmax_t d,
@@ -108,4 +107,5 @@ void	ft_uns_int(uintmax_t d, t_struc *struc, char *p, int *i)
 		ft_flag_no_minus_uns_int(struc, str, d, p, i);
 	ft_count_uns_int(struc, str, d);
 	ft_bzero(struc, sizeof(int) * 22 + sizeof(char) * 3);
+	//free(str);
 }

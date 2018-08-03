@@ -13,7 +13,8 @@
 NAME = libftprintf.a
 TEST = ft_printf.out
 SRCS = printf.c conversions.c parsing.c ft_wchar_c.c int.c str_c_pointer_wchars.c uns_int.c \
-		int_flag_no_minus.c int_flag_minus.c uns_int_flag_minus.c uns_int_flag_no_minus.c
+		int_flag_no_minus.c int_flag_minus.c uns_int_flag_minus.c uns_int_flag_no_minus.c \
+		ft_char.c ft_str.c ft_pointer.c
 
 OBJS = $(SRCS:.c=.o)
 

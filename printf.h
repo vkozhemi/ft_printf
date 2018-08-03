@@ -43,7 +43,7 @@ typedef struct	s_struc
 	int			i;
 	int			len_wchar;
 	int			len_wchar1;
-	int			len_wchar2;
+	int			wchar_s_res;
 	int			len_wchar3;
 	int			destruct;
 	int 		current_count;
@@ -78,7 +78,7 @@ void	ft_wchar_c11(unsigned int v, unsigned char octet, t_struc *struc);
 void	ft_wchar_c16(unsigned int v, unsigned char octet, t_struc *struc);
 void	ft_wchar_c32(unsigned int v, unsigned char octet, t_struc *struc);
 void	ft_wchar_s(va_list ap, t_struc *struc);
-char	ft_plus_minus_int(intmax_t d, char **str);
+void	ft_plus_minus_int(intmax_t d, char **str);
 void	ft_find_precision_int(t_struc *struc, char *str);
 void	ft_width_int(t_struc *struc, char *str, intmax_t d);
 void	ft_flag_minus_int(t_struc *struc, char *str, intmax_t d);

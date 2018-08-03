@@ -12,13 +12,12 @@
 
 #include "printf.h"
 
-char	ft_plus_minus_int(intmax_t d, char **str)
+void	ft_plus_minus_int(intmax_t d, char **str)
 {
 	if (d < 0)
 		*str = ft_itoa_base_plus(d, 10, 0);
 	else
 		*str = ft_itoa_base(d, 10, 0);
-	return (**str);
 }
 
 void	ft_find_precision_int(t_struc *struc, char *str)
@@ -87,4 +86,5 @@ void	ft_int(intmax_t d, t_struc *struc)
 		ft_flag_no_minus_int(struc, str, d);
 	ft_count_int(struc, str, d);
 	ft_bzero(struc, sizeof(int) * 22 + sizeof(char) * 3);
+	free(str);
 }

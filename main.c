@@ -46,6 +46,7 @@
 
 int	main(void)
 {
+	setlocale(LC_ALL, "en_US.UTF-8");
 	setlocale(LC_CTYPE, "");
 #ifdef CHAR
 	TITLE("Char options:\n");
@@ -611,6 +612,6 @@ int	main(void)
 #ifdef LEAKS
 	while (1) sleep(120);
 #endif
-	system(leaks a.out);
+	system("leaks a.out");
 	return (0);
 }

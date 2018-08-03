@@ -93,12 +93,7 @@ void	ft_wchar_c(wchar_t value, t_struc *struc)
 	int				i;
 
 	if (MB_CUR_MAX == 1)
-	{
-		// if (value >= 127)
-		// 	struc->count = -1;
-		// else
-			ft_char(value, struc);
-	}
+		ft_char(value, struc);
 	else
 	{
 		v = value;
@@ -118,4 +113,3 @@ void	ft_wchar_c(wchar_t value, t_struc *struc)
 			ft_wchar_c32(v, octet, struc);
 	}
 }
-
