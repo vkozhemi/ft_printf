@@ -99,7 +99,7 @@ void	ft_wchar_s_str(t_s *s, int j)
 	if (s->minus)
 	{
 		while (j < s->calc_precision)
-			write(1, &s[j++], 1);
+			write(1, &n[j++], 1);
 		while (s->calc_width-- > 0 && ++s->count)
 			write(1, " ", 1);
 		s->count += s->calc_precision;
@@ -114,7 +114,7 @@ void	ft_wchar_s_str(t_s *s, int j)
 				write(1, " ", 1);
 		}
 		while (j < s->calc_precision)
-			write(1, &s[j++], 1);
+			write(1, &n[j++], 1);
 		s->count += s->calc_precision;
 	}
 }
@@ -222,10 +222,11 @@ void	ft_wchar_s(va_list ap, t_s *s)
 		s->calc_precision = s->precision;
 		while (str[j] && (s->calc_precision > 0))
 		{
-			ft_len_wchar1(str[j++], s);
+			ft_len_wchar1(str[j], s);
 			s->calc_precision -= s->len_wchar1;
 			if (s->calc_precision >= 0)
 				s->wchar_s_res += s->len_wchar1;
+			j++;
 		}
 		if (s->precision > s->len_wchar)
 			s->precision = s->len_wchar;
@@ -275,11 +276,12 @@ void	ft_wchar_s(va_list ap, t_s *s)
 	}
 	else
 	{
-		//ft_wchar_s_print(s, str);
-		while (str[i] && s->wchar_s_res > 0)
+		int res = s->wchar_s_res;
+		while (str[i] && res > 0)
 		{
-			ft_wchar_c(str[i++], s);
-			s->wchar_s_res -= s->len_wchar1;
+			ft_wchar_c(str[i], s);
+			ft_len_wchar1(str[i++], s);
+			res -= s->len_wchar1;
 		}
 	}
 	ft_bzero(s, sizeof(int) * 22 + sizeof(char) * 3);
