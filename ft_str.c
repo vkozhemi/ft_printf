@@ -76,7 +76,7 @@ void	ft_str(va_list ap, t_s *s)
 	if (!str)
 	{
 		str = ft_strdup("(null)");
-		free(str);
+		//free(str);
 	}
 	j = ft_strlen(str);
 	if (s->precision || s->flag_precision)
