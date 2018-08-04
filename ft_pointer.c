@@ -104,6 +104,6 @@ void	ft_pointer(va_list ap, t_s *s)
 		ft_pointer_minus(s, str, d);
 	else if (s->minus == 0)
 		ft_pointer_no_minus(s, str, d);
-	ft_bzero(s, sizeof(int) * 22 + sizeof(char) * 3);
-	/*free(str);*/
+	ft_bzero(s, sizeof(int) * 24 + sizeof(char) * 3);
+	free(str);
 }

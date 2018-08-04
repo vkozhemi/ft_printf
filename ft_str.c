@@ -87,5 +87,7 @@ void	ft_str(va_list ap, t_s *s)
 		ft_str_minus(s, j, str, i);
 	else if (s->minus == 0)
 		ft_str_no_minus(s, j, str, i);
-	ft_bzero(s, sizeof(int) * 22 + sizeof(char) * 3);
+	ft_bzero(s, sizeof(int) * 24 + sizeof(char) * 3);
+	if (!ft_strcmp(str, "(null)"))
+		free(str);
 }

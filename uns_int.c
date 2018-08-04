@@ -94,6 +94,7 @@ void	ft_uns_int(uintmax_t d, t_s *s, char *p, int *i)
 	ft_choose_base(d, s, &str);
 	s->len = ft_strlen(str);
 	s->str = str;
+	free(str);
 	ft_find_precision_uns_int(s, d, p, i);
 	ft_width_uns_int(s, d, p, i);
 	if (s->minus)
@@ -101,6 +102,5 @@ void	ft_uns_int(uintmax_t d, t_s *s, char *p, int *i)
 	else
 		ft_flag_no_minus_uns_int(s, d, p, i);
 	ft_count_uns_int(s, d);
-	ft_bzero(s, sizeof(int) * 23 + sizeof(char) * 2 + sizeof(char*));
-	//free(str);
+	ft_bzero(s, sizeof(int) * 24 + sizeof(char) * 2 + sizeof(char*));
 }
