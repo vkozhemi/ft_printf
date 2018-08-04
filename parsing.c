@@ -12,67 +12,67 @@
 
 #include "printf.h"
 
-void	ft_flags(char *p, int *i, t_struc *struc)
+void	ft_flags(char *p, int *i, t_s *s)
 {
-	struc->minus = 0;
-	struc->plus = 0;
-	struc->hash = 0;
-	struc->noll = 0;
-	struc->space = 0;
+	s->minus = 0;
+	s->plus = 0;
+	s->hash = 0;
+	s->noll = 0;
+	s->space = 0;
 	while (p[*i] == '-' || p[*i] == '+' || p[*i] == '#'
 			|| p[*i] == '0' || p[*i] == ' ')
 	{
 		if (p[*i] == '-')
-			struc->minus = 1;
+			s->minus = 1;
 		else if (p[*i] == '+')
-			struc->plus = 1;
+			s->plus = 1;
 		else if (p[*i] == '#')
-			struc->hash = 1;
+			s->hash = 1;
 		else if (p[*i] == '0')
-			struc->noll = 1;
+			s->noll = 1;
 		else if (p[*i] == ' ')
-			struc->space = 1;
+			s->space = 1;
 		(*i)++;
 	}
 }
 
-void	ft_field_width(char *p, int *i, t_struc *struc)
+void	ft_field_width(char *p, int *i, t_s *s)
 {
-	struc->width = 0;
-	struc->width = ft_atoi(p + (*i));
+	s->width = 0;
+	s->width = ft_atoi(p + (*i));
 	while (p[*i] >= '0' && p[*i] <= '9')
 		(*i)++;
 }
 
-void	ft_precision(char *p, int *i, t_struc *struc)
+void	ft_precision(char *p, int *i, t_s *s)
 {
-	struc->flag_precision = 0;
-	struc->precision = 0;
+	s->flag_precision = 0;
+	s->precision = 0;
 	if (p[*i] == '.')
 	{
 		(*i)++;
-		struc->precision = ft_atoi(p + (*i));
+		s->precision = ft_atoi(p + (*i));
 		while (p[*i] >= '0' && p[*i] <= '9')
 			(*i)++;
-		struc->flag_precision = 1;
+		s->flag_precision = 1;
 	}
 }
 
-void	ft_size_modifier(char *p, int *i, t_struc *struc)
+void	ft_size_modifier(char *p, int *i, t_s *s)
 {
 	if ((p[*i] == 'h' && p[*i + 1] == 'h') ||
 			(p[*i] == 'l' && p[*i + 1] == 'l'))
 	{
 		if (p[*i] == 'h')
-			struc->modifier = 'H';
+			s->modifier = 'H';
 		else if (p[*i] == 'l')
-			struc->modifier = 'L';
+			s->modifier = 'L';
 		while (p[*i] == 'h' || p[*i] == 'l')
 			(*i)++;
 	}
 	else if (p[*i] == 'h' || p[*i] == 'l' || p[*i] == 'j' || p[*i] == 'z')
 	{
-		struc->modifier = p[*i];
+		s->modifier = p[*i];
 		(*i)++;
 	}
 }
