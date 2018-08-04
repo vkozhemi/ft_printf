@@ -12,41 +12,41 @@
 
 #include "printf.h"
 
-void	ft_flag_minus_int_0(t_s *s, intmax_t d)
+void	ft_flag_minus_int_0(t_struc *struc, intmax_t d)
 {
-	if (d < 0 && ++s->i)
+	if (d < 0 && ++struc->i)
 		write(1, "-", 1);
-	else if (s->plus && d >= 0 && s->flag_int && ++s->i)
+	else if (struc->plus && d >= 0 && struc->flag_int && ++struc->i)
 		write(1, "+", 1);
-	if (s->space && ++s->i)
+	if (struc->space && ++struc->i)
 		write(1, " ", 1);
-	while (s->calc_precision > 0 && ++s->i)
+	while (struc->calc_precision > 0 && ++struc->i)
 	{
 		ft_putchar('0');
-		s->calc_precision--;
+		struc->calc_precision--;
 	}
 }
 
-void	ft_flag_minus_int(t_s *s, char *str, intmax_t d)
+void	ft_flag_minus_int(t_struc *struc, char *str, intmax_t d)
 {
-	if (s->space && d >= 0 && ++s->i)
+	if (struc->space && d >= 0 && ++struc->i)
 		write(1, " ", 1);
-	if (s->plus && d >= 0 && s->flag_int && ++s->i)
+	if (struc->plus && d >= 0 && struc->flag_int && ++struc->i)
 	{
 		write(1, "+", 1);
-		s->flag_int--;
+		struc->flag_int--;
 	}
-	if (s->calc_precision > 0)
-		ft_flag_minus_int_0(s, d);
-	if (d < 0 && s->precision == 0 && ++s->i)
+	if (struc->calc_precision > 0)
+		ft_flag_minus_int_0(struc, d);
+	if (d < 0 && struc->precision == 0 && ++struc->i)
 		write(1, "-", 1);
-	if (s->precision == 0 && d == 0 && s->flag_precision)
+	if (struc->precision == 0 && d == 0 && struc->flag_precision)
 		write(1, "", 0);
 	else
 		ft_putstr(str);
-	while (s->calc_width > 0 && ++s->i)
+	while (struc->calc_width > 0 && ++struc->i)
 	{
 		write(1, " ", 1);
-		s->calc_width--;
+		struc->calc_width--;
 	}
 }

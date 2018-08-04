@@ -62,4 +62,5 @@ char		*ft_itoa_base(intmax_t value, int base, int size)
 	else if (value == 0)
 		str[0] = '0';
 	return (str);
+	
 }

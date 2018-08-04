@@ -12,43 +12,44 @@
 
 #include "printf.h"
 
-void	ft_flag_minus_uns_int_0(t_s *s, uintmax_t d, char *p, int *i)
+void	ft_flag_minus_uns_int_0(t_struc *struc, uintmax_t d, char *p, int *i)
 {
-	if (s->hash && d && (p[*i] == 'o' || p[*i] == 'O') && ++s->i)
+	if (struc->hash && d && (p[*i] == 'o' || p[*i] == 'O') && ++struc->i)
 		write(1, "0", 1);
-	if (s->hash && p[*i] == 'x' && d)
+	if (struc->hash && p[*i] == 'x' && d)
 	{
 		write(1, "0x", 2);
-		s->i += 2;
+		struc->i += 2;
 	}
-	else if (s->hash && p[*i] == 'X' && d)
+	else if (struc->hash && p[*i] == 'X' && d)
 	{
 		write(1, "0X", 2);
-		s->i += 2;
+		struc->i += 2;
 	}
 }
 
-void	ft_flag_minus_uns_int(t_s *s, uintmax_t d, char *p, int *i)
+void	ft_flag_minus_uns_int(t_struc *struc, char *str, uintmax_t d,
+		char *p, int *i)
 {
-	ft_flag_minus_uns_int_0(s, d, p, i);
-	while (s->calc_precision > 0 && ++s->i)
+	ft_flag_minus_uns_int_0(struc, d, p, i);
+	while (struc->calc_precision > 0 && ++struc->i)
 	{
 		write(1, "0", 1);
-		s->calc_precision--;
+		struc->calc_precision--;
 	}
-	if (s->hash && d == 0 && s->precision == 0 &&
-		s->flag_precision && (p[*i] != 'X' || p[*i] != 'x') && ++s->i)
+	if (struc->hash && d == 0 && struc->precision == 0 &&
+		struc->flag_precision && (p[*i] != 'X' || p[*i] != 'x') && ++struc->i)
 		write(1, "0", 1);
-	if (s->hash && d == 0 && s->precision == 0 &&
-		s->flag_precision && (p[*i] == 'X' || p[*i] == 'x') && ++s->i)
+	if (struc->hash && d == 0 && struc->precision == 0 &&
+		struc->flag_precision && (p[*i] == 'X' || p[*i] == 'x') && ++struc->i)
 		write(1, " ", 1);
-	if (s->precision == 0 && d == 0 && s->flag_precision)
+	if (struc->precision == 0 && d == 0 && struc->flag_precision)
 		write(1, "", 0);
 	else
-		ft_putstr(s->str);
-	while (s->calc_width > 0 && ++s->i)
+		ft_putstr(str);
+	while (struc->calc_width > 0 && ++struc->i)
 	{
 		write(1, " ", 1);
-		s->calc_width--;
+		struc->calc_width--;
 	}
 }

@@ -44,9 +44,9 @@ char		*ft_itoa_base_plus(intmax_t value, int base, int size)
 	nbr = ft_abs_plus(value);
 	len = ft_len_plus(value, base);
 	if (size == 0)
-		base_string = "0123456789ABCDEF";
+		base_string = ft_strdup("0123456789ABCDEF");
 	else
-		base_string = "0123456789abcdef";
+		base_string = ft_strdup("0123456789abcdef");
 	str = (char *)malloc(sizeof(char) * len + 1);
 	if (str == NULL)
 		return (NULL);

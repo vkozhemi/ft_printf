@@ -12,43 +12,43 @@
 
 #include "printf.h"
 
-void	ft_get_conversions_str(char *p, int *i, t_s *s)
+void	ft_get_conversions_str(char *p, int *i, t_struc *struc)
 {
 	if (p[*i] == 'c')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 	else if (p[*i] == 's')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 	else if (p[*i] == 'C')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 	else if (p[*i] == 'S')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 	else if (p[*i] == '%')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 }
 
-void	ft_get_conversions(char *p, int *i, t_s *s)
+void	ft_get_conversions(char *p, int *i, t_struc *struc)
 {
 	if (p[*i] == 'd' || p[*i] == 'i')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 	else if (p[*i] == 'D')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 	else if (p[*i] == 'u')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 	else if (p[*i] == 'U')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 	else if (p[*i] == 'O')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 	else if (p[*i] == 'o')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 	else if (p[*i] == 'x')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 	else if (p[*i] == 'X')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 	else if (p[*i] == 'p')
-		s->conversions = p[*i];
+		struc->conversions = p[*i];
 }
 
-void	ft_check_conversions(char *p, int *i, t_s *s)
+void	ft_check_conversions(char *p, int *i, t_struc *struc)
 {
 	if (p[*i] == 's' || p[*i] == 'S' || p[*i] == 'p' || p[*i] == 'd' ||
 		p[*i] == 'D' || p[*i] == 'i' || p[*i] == 'o' || p[*i] == 'O' ||
@@ -57,12 +57,12 @@ void	ft_check_conversions(char *p, int *i, t_s *s)
 		(*i)++;
 	else
 	{
-		ft_char(p[*i], s);
+		ft_char(p[*i], struc);
 		(*i)++;
 	}
 }
 
-void	ft_call_pars(char *fmt, va_list ap, t_s *s)
+void	ft_call_pars(char *fmt, va_list ap, t_struc *struc)
 {
 	int		i;
 	char	*p;
@@ -73,38 +73,36 @@ void	ft_call_pars(char *fmt, va_list ap, t_s *s)
 	{
 		if (p[i] == '%')
 		{
-			if (!p[i + 1])
-				return ;
 			i++;
-			ft_flags(p, &i, s);
-			ft_field_width(p, &i, s);
-			ft_precision(p, &i, s);
-			ft_size_modifier(p, &i, s);
-			ft_conversions(p, &i, ap, s);
-			ft_check_conversions(p, &i, s);
+			ft_flags(p, &i, struc);
+			ft_field_width(p, &i, struc);
+			ft_precision(p, &i, struc);
+			ft_size_modifier(p, &i, struc);
+			ft_conversions(p, &i, ap, struc);
+			ft_check_conversions(p, &i, struc);
 		}
-		else if (++s->count)
+		else
 		{
 			write(1, &p[i], 1);
+			// ft_str_else(p, &i, struc);
+			struc->count++;
 			i++;
 		}
+		// i++;
 	}
 }
 
 int		ft_printf(char *fmt, ...)
 {
 	size_t	result;
-	t_s	*s;
+	t_struc	*struc;
 	va_list	ap;
-	int		len;
 
 	result = 0;
-	s = (t_s*)malloc(sizeof(t_s));
-	s->count = 0;
+	struc = (t_struc*)malloc(sizeof(t_struc));
+	struc->count = 0;
 	va_start(ap, fmt);
-	ft_call_pars(fmt, ap, s);
+	ft_call_pars(fmt, ap, struc);
 	va_end(ap);
-	len = s->count;
-	free(s);
-	return (len);
+	return (struc->count);
 }

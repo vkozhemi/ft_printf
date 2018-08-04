@@ -612,6 +612,6 @@ int	main(void)
 #ifdef LEAKS
 	while (1) sleep(120);
 #endif
-	system("leaks a.out");
+	system(leaks a.out);
 	return (0);
 }
