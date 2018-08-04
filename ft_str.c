@@ -12,60 +12,60 @@
 
 #include "printf.h"
 
-void	ft_str_precision(t_struc *struc, int *j)
+void	ft_str_precision(t_s *s, int *j)
 {
-	if (struc->precision > *j)
-		struc->precision = *j;
+	if (s->precision > *j)
+		s->precision = *j;
 	else
-		*j = struc->precision;
+		*j = s->precision;
 }
 
-void	ft_str_minus(t_struc *struc, int j, char *str, int i)
+void	ft_str_minus(t_s *s, int j, char *str, int i)
 {
-	struc->calc_width = struc->width - j;
-	if (struc->calc_width < 0)
-		struc->calc_width = 0;
-	while (str[i] && i < struc->precision && ++struc->count)
+	s->calc_width = s->width - j;
+	if (s->calc_width < 0)
+		s->calc_width = 0;
+	while (str[i] && i < s->precision && ++s->count)
 	{
 		write(1, &str[i], 1);
 		i++;
 	}
-	while (struc->calc_width && ++struc->count)
+	while (s->calc_width && ++s->count)
 	{
 		write(1, " ", 1);
-		struc->calc_width--;
+		s->calc_width--;
 	}
 }
 
-void	ft_str_no_minus(t_struc *struc, int j, char *str, int i)
+void	ft_str_no_minus(t_s *s, int j, char *str, int i)
 {
-	if (struc->width)
+	if (s->width)
 	{
-		struc->calc_width = struc->width - j;
-		if (struc->calc_width < 0)
-			struc->calc_width = 0;
-		while (struc->calc_width && ++struc->count)
+		s->calc_width = s->width - j;
+		if (s->calc_width < 0)
+			s->calc_width = 0;
+		while (s->calc_width && ++s->count)
 		{
-			if (struc->noll)
+			if (s->noll)
 				write(1, "0", 1);
 			else
 				write(1, " ", 1);
-			struc->calc_width--;
+			s->calc_width--;
 		}
 	}
-	if (struc->precision == 0 && struc->flag_precision)
+	if (s->precision == 0 && s->flag_precision)
 		write(1, "", 0);
-	else if (struc->precision)
-		while (str[i] && i < struc->precision && ++struc->count)
+	else if (s->precision)
+		while (str[i] && i < s->precision && ++s->count)
 			write(1, &str[i++], 1);
 	else
 	{
 		ft_putstr(str);
-		struc->count += ft_strlen(str);
+		s->count += ft_strlen(str);
 	}
 }
 
-void	ft_str(va_list ap, t_struc *struc)
+void	ft_str(va_list ap, t_s *s)
 {
 	int		i;
 	char	*str;
@@ -79,13 +79,13 @@ void	ft_str(va_list ap, t_struc *struc)
 		free(str);
 	}
 	j = ft_strlen(str);
-	if (struc->precision || struc->flag_precision)
-		ft_str_precision(struc, &j);
+	if (s->precision || s->flag_precision)
+		ft_str_precision(s, &j);
 	else
-		struc->precision = j;
-	if (struc->minus)
-		ft_str_minus(struc, j, str, i);
-	else if (struc->minus == 0)
-		ft_str_no_minus(struc, j, str, i);
-	ft_bzero(struc, sizeof(int) * 22 + sizeof(char) * 3);
+		s->precision = j;
+	if (s->minus)
+		ft_str_minus(s, j, str, i);
+	else if (s->minus == 0)
+		ft_str_no_minus(s, j, str, i);
+	ft_bzero(s, sizeof(int) * 22 + sizeof(char) * 3);
 }

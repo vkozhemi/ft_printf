@@ -12,51 +12,51 @@
 
 #include "printf.h"
 
-void	ft_char_struc_minus(char c, t_struc *struc)
+void	ft_char_s_minus(char c, t_s *s)
 {
 	write(1, &c, 1);
-	struc->count++;
-	struc->width -= 1;
-	while (struc->width && ++struc->count)
+	s->count++;
+	s->width -= 1;
+	while (s->width && ++s->count)
 	{
 		write(1, " ", 1);
-		struc->width--;
+		s->width--;
 	}
-	struc->count += struc->i;
+	s->count += s->i;
 }
 
-void	ft_char_struc_no_minus(char c, t_struc *struc)
+void	ft_char_s_no_minus(char c, t_s *s)
 {
-	struc->width -= 1;
-	while (struc->width && ++struc->count)
+	s->width -= 1;
+	while (s->width && ++s->count)
 	{
-		if (struc->noll)
+		if (s->noll)
 			write(1, "0", 1);
 		else
 			write(1, " ", 1);
-		struc->width--;
+		s->width--;
 	}
 	write(1, &c, 1);
-	struc->count++;
+	s->count++;
 }
 
-void	ft_char(char c, t_struc *struc)
+void	ft_char(char c, t_s *s)
 {
 	if (!c)
 		c = '\0';
-	if (struc->width)
+	if (s->width)
 	{
-		if (struc->minus)
+		if (s->minus)
 		{
-			ft_char_struc_minus(c, struc);
+			ft_char_s_minus(c, s);
 		}
-		else if (struc->minus == 0)
-			ft_char_struc_no_minus(c, struc);
+		else if (s->minus == 0)
+			ft_char_s_no_minus(c, s);
 	}
 	else
 	{
 		write(1, &c, 1);
-		struc->count++;
+		s->count++;
 	}
-	ft_bzero(struc, sizeof(int) * 22 + sizeof(char) * 3);
+	ft_bzero(s, sizeof(int) * 22 + sizeof(char) * 3);
 }

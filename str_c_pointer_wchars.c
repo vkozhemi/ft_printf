@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-void	ft_len_wchar(wchar_t value, t_struc *struc)
+void	ft_len_wchar(wchar_t value, t_s *s)
 {
 	unsigned int	v;
 	unsigned char	octet;
@@ -20,7 +20,7 @@ void	ft_len_wchar(wchar_t value, t_struc *struc)
 	int				i;
 
 	if (MB_CUR_MAX == 1)
-		struc->len_wchar++;
+		s->len_wchar++;
 	else
 	{
 		v = value;
@@ -28,17 +28,17 @@ void	ft_len_wchar(wchar_t value, t_struc *struc)
 		i = 0;
 		octet = 0;
 		if (size <= 7)
-			struc->len_wchar++;
+			s->len_wchar++;
 		else if (size <= 11)
-			struc->len_wchar += 2;
+			s->len_wchar += 2;
 		else if (size <= 16)
-			struc->len_wchar += 3;
+			s->len_wchar += 3;
 		else
-			struc->len_wchar += 4;
+			s->len_wchar += 4;
 	}
 }
 
-void	ft_len_wchar1(wchar_t value, t_struc *struc)
+void	ft_len_wchar1(wchar_t value, t_s *s)
 {
 	unsigned int	v;
 	unsigned char	octet;
@@ -46,7 +46,7 @@ void	ft_len_wchar1(wchar_t value, t_struc *struc)
 	int				i;
 
 	if (MB_CUR_MAX == 1)
-		struc->len_wchar1 = 1;
+		s->len_wchar1 = 1;
 	else
 	{
 		v = value;
@@ -54,13 +54,13 @@ void	ft_len_wchar1(wchar_t value, t_struc *struc)
 		i = 0;
 		octet = 0;
 		if (size <= 7)
-			struc->len_wchar1 = 1;
+			s->len_wchar1 = 1;
 		else if (size <= 11)
-			struc->len_wchar1 = 2;
+			s->len_wchar1 = 2;
 		else if (size <= 16)
-			struc->len_wchar1 = 3;
+			s->len_wchar1 = 3;
 		else
-			struc->len_wchar1 = 4;
+			s->len_wchar1 = 4;
 	}
 }
 
@@ -74,130 +74,130 @@ void	ft_len_wchar1(wchar_t value, t_struc *struc)
 
 
 
-void	ft_wchar_s_str_p_w(t_struc *struc, char *s)
+void	ft_wchar_s_str_p_w(t_s *s, char *n)
 {
-	if (struc->flag_precision)
-		struc->calc_precision = struc->precision;
-	if (struc->calc_precision > 6)
-		struc->calc_precision = 6;
-	if (struc->precision == 0)
-		struc->calc_precision = ft_strlen(s);
-	if (struc->width)
-		struc->calc_width = struc->width - struc->calc_precision;
+	if (s->flag_precision)
+		s->calc_precision = s->precision;
+	if (s->calc_precision > 6)
+		s->calc_precision = 6;
+	if (s->precision == 0)
+		s->calc_precision = ft_strlen(n);
+	if (s->width)
+		s->calc_width = s->width - s->calc_precision;
 	else
-		struc->calc_width = 0;
-	if (struc->calc_width < 0)
-		struc->calc_width = 0;
+		s->calc_width = 0;
+	if (s->calc_width < 0)
+		s->calc_width = 0;
 }
 
-void	ft_wchar_s_str(t_struc *struc, int j)
+void	ft_wchar_s_str(t_s *s, int j)
 {
-	char 	*s;
+	char 	*n;
 
-	s = "(null)";
-	ft_wchar_s_str_p_w(struc, s);
-	if (struc->minus)
+	n = "(null)";
+	ft_wchar_s_str_p_w(s, n);
+	if (s->minus)
 	{
-		while (s[j] && j < struc->calc_precision)
+		while (j < s->calc_precision)
 			write(1, &s[j++], 1);
-		while (struc->calc_width-- > 0 && ++struc->count)
+		while (s->calc_width-- > 0 && ++s->count)
 			write(1, " ", 1);
-		struc->count += struc->calc_precision;
+		s->count += s->calc_precision;
 	}
-	else if (struc->minus == 0)
+	else if (s->minus == 0)
 	{
-		while (struc->calc_width-- > 0 && ++struc->count)
+		while (s->calc_width-- > 0 && ++s->count)
 		{
-			if (struc->noll)
+			if (s->noll)
 				write(1, "0", 1);
 			else
 				write(1, " ", 1);
 		}
-		while (s[j] && j < struc->calc_precision)
+		while (j < s->calc_precision)
 			write(1, &s[j++], 1);
-		struc->count += struc->calc_precision;
+		s->count += s->calc_precision;
 	}
 }
 
-void	ft_wchar_s_precision(t_struc *struc, char *str)
+void	ft_wchar_s_precision(t_s *s, char *str)
 {
 	int j;
 
 	j = 0;
-	struc->calc_precision = struc->precision;
-	while (str[j] && (struc->calc_precision > 0))
+	s->calc_precision = s->precision;
+	while (str[j] && (s->calc_precision > 0))
 	{
-		ft_len_wchar1(str[j++], struc);
-		struc->calc_precision -= struc->len_wchar1;
-		if (struc->calc_precision >= 0)
-			struc->wchar_s_res += struc->len_wchar1;
+		ft_len_wchar1(str[j++], s);
+		s->calc_precision -= s->len_wchar1;
+		if (s->calc_precision >= 0)
+			s->wchar_s_res += s->len_wchar1;
 	}
-	if (struc->precision > struc->len_wchar)
-		struc->precision = struc->len_wchar;
+	if (s->precision > s->len_wchar)
+		s->precision = s->len_wchar;
 	else
-		struc->precision = struc->wchar_s_res;
+		s->precision = s->wchar_s_res;
 }
 
-void	ft_wchar_s_width(t_struc *struc, char *str)
+void	ft_wchar_s_width(t_s *s, wchar_t *str)
 {
 	if (!*str)
-		struc->calc_width = struc->width;
+		s->calc_width = s->width;
 	else
-		struc->calc_width = struc->width - struc->wchar_s_res;
-	if (struc->calc_width < 0)
-		struc->calc_width = 0;
+		s->calc_width = s->width - s->wchar_s_res;
+	if (s->calc_width < 0)
+		s->calc_width = 0;
 }
 
-void	ft_wchar_s_width_print(t_struc *struc, char *str)
+void	ft_wchar_s_width_print(t_s *s, wchar_t *str)
 {
 	int i;
 
 	i = 0;
-	if (struc->minus)
+	if (s->minus)
 	{
-		while (str[i] && struc->wchar_s_res > 0)
+		while (str[i] && s->wchar_s_res > 0)
 		{
-			ft_wchar_c(str[i++], struc);
-			struc->wchar_s_res -= struc->len_wchar1;
+			ft_wchar_c(str[i++], s);
+			s->wchar_s_res -= s->len_wchar1;
 		}
-		while (struc->calc_width-- && ++struc->count)
+		while (s->calc_width-- && ++s->count)
 			write(1, " ", 1);
 	}
-	else if (struc->minus == 0)
+	else if (s->minus == 0)
 	{
-		while (struc->calc_width-- && ++struc->count)
+		while (s->calc_width-- && ++s->count)
 		{
-			if (struc->noll)
+			if (s->noll)
 				write(1, "0", 1);
 			else
 				write(1, " ", 1);
 		}
-		if (struc->precision == 0 && struc->flag_precision)
+		if (s->precision == 0 && s->flag_precision)
 			write(1, "", 0);
 		else
 		{
-			while (str[i] && struc->wchar_s_res > 0)
+			while (str[i] && s->wchar_s_res > 0)
 			{
-				ft_wchar_c(str[i++], struc);
-				struc->wchar_s_res -= struc->len_wchar1;
+				ft_wchar_c(str[i++], s);
+				s->wchar_s_res -= s->len_wchar1;
 			}
 		}
 	}
 }
 
-void	ft_wchar_s_print(t_struc *struc, char *str)
+void	ft_wchar_s_print(t_s *s, char *str)
 {
 	int i;
 
 	i = 0;
-	while (str[i] && struc->wchar_s_res > 0)
+	while (str[i] && s->wchar_s_res > 0)
 	{
-		ft_wchar_c(str[i++], struc);
-		struc->wchar_s_res -= struc->len_wchar1;
+		ft_wchar_c(str[i++], s);
+		s->wchar_s_res -= s->len_wchar1;
 	}
 }
 
-void	ft_wchar_s(va_list ap, t_struc *struc)
+void	ft_wchar_s(va_list ap, t_s *s)
 {
 	int		i;
 	int		j;
@@ -209,78 +209,78 @@ void	ft_wchar_s(va_list ap, t_struc *struc)
 	str = va_arg(ap, wchar_t*);
 	if (!str)
 	{
-		ft_wchar_s_str(struc, j);
+		ft_wchar_s_str(s, j);
 		return ;
 	}
 	while (str[j])
-		ft_len_wchar(str[j++], struc);
-	struc->wchar_s_res = 0;
-	if (struc->precision || struc->flag_precision)
+		ft_len_wchar(str[j++], s);
+	s->wchar_s_res = 0;
+	if (s->precision || s->flag_precision)
 	{
-		//ft_wchar_s_precision(struc, str);
+		//ft_wchar_s_precision(s, str);
 		j = 0;
-		struc->calc_precision = struc->precision;
-		while (str[j] && (struc->calc_precision > 0))
+		s->calc_precision = s->precision;
+		while (str[j] && (s->calc_precision > 0))
 		{
-			ft_len_wchar1(str[j++], struc);
-			struc->calc_precision -= struc->len_wchar1;
-			if (struc->calc_precision >= 0)
-				struc->wchar_s_res += struc->len_wchar1;
+			ft_len_wchar1(str[j++], s);
+			s->calc_precision -= s->len_wchar1;
+			if (s->calc_precision >= 0)
+				s->wchar_s_res += s->len_wchar1;
 		}
-		if (struc->precision > struc->len_wchar)
-			struc->precision = struc->len_wchar;
+		if (s->precision > s->len_wchar)
+			s->precision = s->len_wchar;
 		else
-			struc->precision = struc->wchar_s_res;
+			s->precision = s->wchar_s_res;
 	}
 	else
-		struc->wchar_s_res = struc->len_wchar;
-	if (struc->width || struc->width == 0)
-		ft_wchar_s_width(struc, str);
-	if (struc->width)
+		s->wchar_s_res = s->len_wchar;
+	if (s->width || s->width == 0)
+		ft_wchar_s_width(s, str);
+	if (s->width)
 	{
-		//ft_wchar_s_width_print(struc, str);
+		//ft_wchar_s_width_print(s, str);
 
-		if (struc->minus)
+		if (s->minus)
 		{
-			//ft_wchar_s_print(struc, str);
-			while (str[i] && struc->wchar_s_res > 0)
+			//ft_wchar_s_print(s, str);
+			while (str[i] && s->wchar_s_res > 0)
 			{
-				ft_wchar_c(str[i++], struc);
-				struc->wchar_s_res -= struc->len_wchar1;
+				ft_wchar_c(str[i++], s);
+				s->wchar_s_res -= s->len_wchar1;
 			}
-			while (struc->calc_width-- && ++struc->count)
+			while (s->calc_width-- && ++s->count)
 				write(1, " ", 1);
 		}
-		else if (struc->minus == 0)
+		else if (s->minus == 0)
 		{
-			while (struc->calc_width-- && ++struc->count)
+			while (s->calc_width-- && ++s->count)
 			{
-				if (struc->noll)
+				if (s->noll)
 					write(1, "0", 1);
 				else
 					write(1, " ", 1);
 			}
-			if (struc->precision == 0 && struc->flag_precision)
+			if (s->precision == 0 && s->flag_precision)
 				write(1, "", 0);
 			else
 			{
-				//ft_wchar_s_print(struc, str);
-				while (str[i] && struc->wchar_s_res > 0)
+				//ft_wchar_s_print(s, str);
+				while (str[i] && s->wchar_s_res > 0)
 				{
-					ft_wchar_c(str[i++], struc);
-					struc->wchar_s_res -= struc->len_wchar1;
+					ft_wchar_c(str[i++], s);
+					s->wchar_s_res -= s->len_wchar1;
 				}
 			}
 		}
 	}
 	else
 	{
-		//ft_wchar_s_print(struc, str);
-		while (str[i] && struc->wchar_s_res > 0)
+		//ft_wchar_s_print(s, str);
+		while (str[i] && s->wchar_s_res > 0)
 		{
-			ft_wchar_c(str[i++], struc);
-			struc->wchar_s_res -= struc->len_wchar1;
+			ft_wchar_c(str[i++], s);
+			s->wchar_s_res -= s->len_wchar1;
 		}
 	}
-	ft_bzero(struc, sizeof(int) * 22 + sizeof(char) * 3);
+	ft_bzero(s, sizeof(int) * 22 + sizeof(char) * 3);
 }

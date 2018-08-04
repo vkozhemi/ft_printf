@@ -12,100 +12,95 @@
 
 #include "printf.h"
 
-void	ft_choose_base(uintmax_t d, t_struc *struc, char **str)
+void	ft_choose_base(uintmax_t d, t_s *s, char **str)
 {
-	if (struc->conversions == 'u')
+	if (s->conversions == 'u')
 		*str = ft_itoa_base_uns(d, 10, 0);
-	else if (struc->conversions == 'U')
+	else if (s->conversions == 'U')
 		*str = ft_itoa_base_uns(d, 10, 0);
-	else if (struc->conversions == 'o')
+	else if (s->conversions == 'o')
 		*str = ft_itoa_base_uns(d, 8, 0);
-	else if (struc->conversions == 'O')
+	else if (s->conversions == 'O')
 		*str = ft_itoa_base_uns(d, 8, 0);
-	else if (struc->conversions == 'x')
+	else if (s->conversions == 'x')
 		*str = ft_itoa_base_uns(d, 16, 1);
-	else if (struc->conversions == 'X')
+	else if (s->conversions == 'X')
 		*str = ft_itoa_base_uns(d, 16, 0);
 }
 
-void	ft_find_precision_uns_int(t_struc *struc, char *str, uintmax_t d,
+void	ft_find_precision_uns_int(t_s *s, uintmax_t d,
 		char *p, int *i)
 {
-	if (struc->precision)
+	if (s->precision)
 	{
-		if ((p[*i] == 'O' || p[*i] == 'o') && struc->hash && d)
-			struc->calc_precision = struc->precision - ft_strlen(str) - 1;
+		if ((p[*i] == 'O' || p[*i] == 'o') && s->hash && d)
+			s->calc_precision = s->precision - s->len - 1;
 		else
-			struc->calc_precision = struc->precision - ft_strlen(str);
-		if (struc->calc_precision < 0)
-			struc->calc_precision = 0;
+			s->calc_precision = s->precision - s->len;
+		if (s->calc_precision < 0)
+			s->calc_precision = 0;
 	}
 	else
-		struc->calc_precision = 0;
+		s->calc_precision = 0;
 }
 
-void	ft_width_uns_int(t_struc *struc, char *str, uintmax_t d,
-		char *p, int *i)
+void	ft_width_uns_int(t_s *s, uintmax_t d, char *p, int *i)
 {
-	if (struc->width)
+	if (s->width)
 	{
-		if (struc->hash && d == 0 && (p[*i] == 'x' || p[*i] == 'X'))
-			struc->calc_width = struc->width - ft_strlen(str) -
-			struc->calc_precision;
-		else if (struc->hash && (p[*i] == 'x' || p[*i] == 'X'))
-			struc->calc_width = struc->width - ft_strlen(str) -
-			struc->calc_precision - 2;
-		else if (struc->hash && d == 0 && struc->precision &&
+		if (s->hash && d == 0 && (p[*i] == 'x' || p[*i] == 'X'))
+			s->calc_width = s->width - s->len - s->calc_precision;
+		else if (s->hash && (p[*i] == 'x' || p[*i] == 'X'))
+			s->calc_width = s->width - s->len - s->calc_precision - 2;
+		else if (s->hash && d == 0 && s->precision &&
 			(p[*i] == 'o' || p[*i] == 'O'))
-			struc->calc_width = struc->width - ft_strlen(str) -
-			struc->calc_precision;
-		else if (struc->hash && d == 0 && (p[*i] == 'o' || p[*i] == 'O'))
-			struc->calc_width = struc->width - ft_strlen(str) -
-			struc->calc_precision;
-		else if (struc->hash && (p[*i] == 'o' || p[*i] == 'O'))
-			struc->calc_width = struc->width - ft_strlen(str) -
-			struc->calc_precision - 1;
-		else if (d == 0 && struc->precision == 0 && struc->flag_precision)
-			struc->calc_width = struc->width;
-		else if (struc->width && d == 0 && struc->precision == 0 &&
-			struc->flag_precision)
-			struc->calc_width = struc->width;
+			s->calc_width = s->width - s->len - s->calc_precision;
+		else if (s->hash && d == 0 && (p[*i] == 'o' || p[*i] == 'O'))
+			s->calc_width = s->width - s->len - s->calc_precision;
+		else if (s->hash && (p[*i] == 'o' || p[*i] == 'O'))
+			s->calc_width = s->width - s->len - s->calc_precision - 1;
+		else if (d == 0 && s->precision == 0 && s->flag_precision)
+			s->calc_width = s->width;
+		else if (s->width && d == 0 && s->precision == 0 &&
+			s->flag_precision)
+			s->calc_width = s->width;
 		else
-			struc->calc_width = struc->width - ft_strlen(str) -
-			struc->calc_precision;
+			s->calc_width = s->width - s->len - s->calc_precision;
 	}
 	else
-		struc->calc_width = 0;
-	if (struc->calc_width < 0)
-		struc->calc_width = 0;
+		s->calc_width = 0;
+	if (s->calc_width < 0)
+		s->calc_width = 0;
 }
 
-void	ft_count_uns_int(t_struc *struc, char *str, uintmax_t d)
+void	ft_count_uns_int(t_s *s, uintmax_t d)
 {
-	if (d == 0 && struc->precision)
-		struc->count += struc->i + ft_strlen(str);
-	else if (d == 0 && struc->precision == 0 && struc->flag_precision == 0)
-		struc->count += struc->i + ft_strlen(str);
-	else if (d == 0 && struc->precision == 0)
-		struc->count += struc->i;
+	if (d == 0 && s->precision)
+		s->count += s->i + s->len;
+	else if (d == 0 && s->precision == 0 && s->flag_precision == 0)
+		s->count += s->i + s->len;
+	else if (d == 0 && s->precision == 0)
+		s->count += s->i;
 	else
-		struc->count += struc->i + ft_strlen(str);
+		s->count += s->i + s->len;
 }
 
-void	ft_uns_int(uintmax_t d, t_struc *struc, char *p, int *i)
+void	ft_uns_int(uintmax_t d, t_s *s, char *p, int *i)
 {
 	char *str;
 
 	str = NULL;
-	struc->calc_precision = 0;
-	ft_choose_base(d, struc, &str);
-	ft_find_precision_uns_int(struc, str, d, p, i);
-	ft_width_uns_int(struc, str, d, p, i);
-	if (struc->minus)
-		ft_flag_minus_uns_int(struc, str, d, p, i);
+	s->calc_precision = 0;
+	ft_choose_base(d, s, &str);
+	s->len = ft_strlen(str);
+	s->str = str;
+	ft_find_precision_uns_int(s, d, p, i);
+	ft_width_uns_int(s, d, p, i);
+	if (s->minus)
+		ft_flag_minus_uns_int(s, d, p, i);
 	else
-		ft_flag_no_minus_uns_int(struc, str, d, p, i);
-	ft_count_uns_int(struc, str, d);
-	ft_bzero(struc, sizeof(int) * 22 + sizeof(char) * 3);
+		ft_flag_no_minus_uns_int(s, d, p, i);
+	ft_count_uns_int(s, d);
+	ft_bzero(s, sizeof(int) * 23 + sizeof(char) * 3);
 	//free(str);
 }

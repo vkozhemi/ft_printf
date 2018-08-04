@@ -20,71 +20,71 @@ void	ft_plus_minus_int(intmax_t d, char **str)
 		*str = ft_itoa_base(d, 10, 0);
 }
 
-void	ft_find_precision_int(t_struc *struc, char *str)
+void	ft_find_precision_int(t_s *s, char *str)
 {
-	if (struc->precision)
+	if (s->precision)
 	{
-		struc->calc_precision = struc->precision - ft_strlen(str);
-		if (struc->calc_precision < 0)
-			struc->calc_precision = 0;
+		s->calc_precision = s->precision - ft_strlen(str);
+		if (s->calc_precision < 0)
+			s->calc_precision = 0;
 	}
 	else
-		struc->calc_precision = 0;
+		s->calc_precision = 0;
 }
 
-void	ft_width_int(t_struc *struc, char *str, intmax_t d)
+void	ft_width_int(t_s *s, char *str, intmax_t d)
 {
-	if (struc->width)
+	if (s->width)
 	{
-		if (struc->width && d == 0 && struc->precision == 0 &&
-			struc->flag_precision)
-			struc->calc_width = struc->width;
-		else if ((struc->plus && d > 0) || (struc->plus && d < 0) ||
-			d < 0 || (struc->plus && d == 0))
-			struc->calc_width = struc->width - ft_strlen(str) -
-			struc->calc_precision - 1;
-		else if (d == 0 && struc->precision == 0 && struc->flag_precision)
-			struc->calc_width = struc->width;
-		else if (struc->space)
-			struc->calc_width = struc->width - ft_strlen(str) -
-			struc->calc_precision - 1;
+		if (s->width && d == 0 && s->precision == 0 &&
+			s->flag_precision)
+			s->calc_width = s->width;
+		else if ((s->plus && d > 0) || (s->plus && d < 0) ||
+			d < 0 || (s->plus && d == 0))
+			s->calc_width = s->width - ft_strlen(str) -
+			s->calc_precision - 1;
+		else if (d == 0 && s->precision == 0 && s->flag_precision)
+			s->calc_width = s->width;
+		else if (s->space)
+			s->calc_width = s->width - ft_strlen(str) -
+			s->calc_precision - 1;
 		else
-			struc->calc_width = struc->width - ft_strlen(str) -
-			struc->calc_precision;
+			s->calc_width = s->width - ft_strlen(str) -
+			s->calc_precision;
 	}
 	else
-		struc->calc_width = 0;
-	if (struc->calc_width < 0)
-		struc->calc_width = 0;
+		s->calc_width = 0;
+	if (s->calc_width < 0)
+		s->calc_width = 0;
 }
 
-void	ft_count_int(t_struc *struc, char *str, intmax_t d)
+void	ft_count_int(t_s *s, char *str, intmax_t d)
 {
-	if (d == 0 && struc->precision)
-		struc->count += struc->i + ft_strlen(str);
-	else if (d == 0 && struc->precision == 0 && struc->flag_precision == 0)
-		struc->count += struc->i + ft_strlen(str);
-	else if (d == 0 && struc->precision == 0)
-		struc->count += struc->i;
+	if (d == 0 && s->precision)
+		s->count += s->i + ft_strlen(str);
+	else if (d == 0 && s->precision == 0 && s->flag_precision == 0)
+		s->count += s->i + ft_strlen(str);
+	else if (d == 0 && s->precision == 0)
+		s->count += s->i;
 	else
-		struc->count += ft_strlen(str) + struc->i;
+		s->count += ft_strlen(str) + s->i;
 }
 
-void	ft_int(intmax_t d, t_struc *struc)
+void	ft_int(intmax_t d, t_s *s)
 {
 	char	*str;
 
-	struc->flag_int = 1;
+	s->flag_int = 1;
 	str = NULL;
-	struc->calc_precision = 0;
+	s->calc_precision = 0;
 	ft_plus_minus_int(d, &str);
-	ft_find_precision_int(struc, str);
-	ft_width_int(struc, str, d);
-	if (struc->minus)
-		ft_flag_minus_int(struc, str, d);
+	ft_find_precision_int(s, str);
+	ft_width_int(s, str, d);
+	if (s->minus)
+		ft_flag_minus_int(s, str, d);
 	else
-		ft_flag_no_minus_int(struc, str, d);
-	ft_count_int(struc, str, d);
-	ft_bzero(struc, sizeof(int) * 22 + sizeof(char) * 3);
+		ft_flag_no_minus_int(s, str, d);
+	ft_count_int(s, str, d);
+	ft_bzero(s, sizeof(int) * 22 + sizeof(char) * 3);
 	free(str);
 }

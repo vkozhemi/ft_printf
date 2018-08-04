@@ -25,7 +25,7 @@ int		ft_size_bin(wchar_t value)
 	return (i);
 }
 
-void	ft_wchar_c11(unsigned int v, unsigned char octet, t_struc *struc)
+void	ft_wchar_c11(unsigned int v, unsigned char octet, t_s *s)
 {
 	unsigned int	mask1;
 	unsigned char	o2;
@@ -38,10 +38,10 @@ void	ft_wchar_c11(unsigned int v, unsigned char octet, t_struc *struc)
 	write(1, &octet, 1);
 	octet = ((mask1 << 24) >> 24) | o2;
 	write(1, &octet, 1);
-	struc->count += 2;
+	s->count += 2;
 }
 
-void	ft_wchar_c16(unsigned int v, unsigned char octet, t_struc *struc)
+void	ft_wchar_c16(unsigned int v, unsigned char octet, t_s *s)
 {
 	unsigned int	mask2;
 	unsigned char	o3;
@@ -58,10 +58,10 @@ void	ft_wchar_c16(unsigned int v, unsigned char octet, t_struc *struc)
 	write(1, &octet, 1);
 	octet = ((mask2 << 24) >> 24) | o3;
 	write(1, &octet, 1);
-	struc->count += 3;
+	s->count += 3;
 }
 
-void	ft_wchar_c32(unsigned int v, unsigned char octet, t_struc *struc)
+void	ft_wchar_c32(unsigned int v, unsigned char octet, t_s *s)
 {
 	unsigned int	mask3;
 	unsigned char	o4;
@@ -82,10 +82,10 @@ void	ft_wchar_c32(unsigned int v, unsigned char octet, t_struc *struc)
 	write(1, &octet, 1);
 	octet = ((mask3 << 24) >> 24) | o4;
 	write(1, &octet, 1);
-	struc->count += 4;
+	s->count += 4;
 }
 
-void	ft_wchar_c(wchar_t value, t_struc *struc)
+void	ft_wchar_c(wchar_t value, t_s *s)
 {
 	unsigned int	v;
 	int				size;
@@ -93,23 +93,23 @@ void	ft_wchar_c(wchar_t value, t_struc *struc)
 	int				i;
 
 	if (MB_CUR_MAX == 1)
-		ft_char(value, struc);
+		ft_char(value, s);
 	else
 	{
 		v = value;
 		size = ft_size_bin(value);
 		i = 0;
 		octet = 0;
-		if (size <= 7 && ++struc->count)
+		if (size <= 7 && ++s->count)
 		{
 			octet = value;
 			write(1, &octet, 1);
 		}
 		else if (size <= 11)
-			ft_wchar_c11(v, octet, struc);
+			ft_wchar_c11(v, octet, s);
 		else if (size <= 16)
-			ft_wchar_c16(v, octet, struc);
+			ft_wchar_c16(v, octet, s);
 		else
-			ft_wchar_c32(v, octet, struc);
+			ft_wchar_c32(v, octet, s);
 	}
 }
