@@ -24,8 +24,7 @@ void	ft_flag_no_minus_uns_int_0(t_s *s)
 	}
 }
 
-void	ft_flag_no_minus_uns_int_1(t_s *s, uintmax_t d, char *p,
-		int *i)
+void	ft_flag_no_minus_uns_int_1(t_s *s, uintmax_t d, char *p, int *i)
 {
 	while (s->calc_width > 0 && s->noll == 0 && ++s->i)
 	{

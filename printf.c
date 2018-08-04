@@ -94,7 +94,7 @@ void	ft_call_pars(char *fmt, va_list ap, t_s *s)
 int		ft_printf(char *fmt, ...)
 {
 	size_t	result;
-	t_s	*s;
+	t_s		*s;
 	va_list	ap;
 	int		len;
 
