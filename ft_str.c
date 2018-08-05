@@ -74,10 +74,7 @@ void	ft_str(va_list ap, t_s *s)
 	i = 0;
 	str = va_arg(ap, char *);
 	if (!str)
-	{
-		str = ft_strdup("(null)");
-		//free(str);
-	}
+		str = "(null)";
 	j = ft_strlen(str);
 	if (s->precision || s->flag_precision)
 		ft_str_precision(s, &j);
@@ -88,6 +85,4 @@ void	ft_str(va_list ap, t_s *s)
 	else if (s->minus == 0)
 		ft_str_no_minus(s, j, str, i);
 	ft_bzero(s, sizeof(int) * 24 + sizeof(char) * 3);
-	if (!ft_strcmp(str, "(null)"))
-		free(str);
 }

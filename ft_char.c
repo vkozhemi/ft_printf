@@ -58,5 +58,5 @@ void	ft_char(char c, t_s *s)
 		write(1, &c, 1);
 		s->count++;
 	}
-	ft_bzero(s, sizeof(int) * 22 + sizeof(char) * 3);
+	ft_bzero(s, sizeof(int) * 24 + sizeof(char) * 3);
 }
