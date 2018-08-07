@@ -13,8 +13,9 @@
 NAME = libftprintf.a
 TEST = ft_printf.out
 SRCS = printf.c conversions.c parsing.c ft_wchar_c.c int.c uns_int.c \
-		int_flag_no_minus.c int_flag_minus.c uns_int_flag_minus.c uns_int_flag_no_minus.c \
-		ft_char.c ft_str.c ft_pointer.c ft_percent.c ft_wchar_str.c ft_wchar_str2.c
+		int_flag_no_minus.c int_flag_minus.c uns_int_flag_minus.c \
+		uns_int_flag_no_minus.c ft_char.c ft_str.c ft_pointer.c \
+		ft_percent.c ft_wchar_str.c ft_wchar_str2.c ft_wchar_width.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -26,7 +27,7 @@ $(NAME):
 	@ar rc $(NAME) *.o
 
 test:
-	@gcc -g -L. -lftprintf $(SRCS) ../printf1/main.c -o $(TEST)
+	@gcc -g -Wall -Wextra -Werror -L. -lftprintf $(SRCS) ../printf1/main.c -o $(TEST)
 
 clean:
 	@rm -rf *.o libft/*.o

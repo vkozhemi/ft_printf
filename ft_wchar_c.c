@@ -12,17 +12,10 @@
 
 #include "printf.h"
 
-int		ft_size_bin(wchar_t value)
+void	ft_wchar_c7(wchar_t value, unsigned char octet)
 {
-	int i;
-
-	i = 0;
-	while (value)
-	{
-		value = value / 2;
-		i++;
-	}
-	return (i);
+	octet = value;
+	write(1, &octet, 1);
 }
 
 void	ft_wchar_c11(unsigned int v, unsigned char octet, t_s *s)
@@ -90,7 +83,6 @@ void	ft_wchar_c(wchar_t value, t_s *s)
 	unsigned int	v;
 	int				size;
 	unsigned char	octet;
-	int				i;
 
 	if (MB_CUR_MAX == 1)
 		ft_char(value, s);
@@ -98,18 +90,19 @@ void	ft_wchar_c(wchar_t value, t_s *s)
 	{
 		v = value;
 		size = ft_size_bin(value);
-		i = 0;
 		octet = 0;
+		ft_len_wchar2(value, s);
+		if (s->minus == 0)
+			ft_char_c_no_minus(s);
 		if (size <= 7 && ++s->count)
-		{
-			octet = value;
-			write(1, &octet, 1);
-		}
+			ft_wchar_c7(value, octet);
 		else if (size <= 11)
 			ft_wchar_c11(v, octet, s);
 		else if (size <= 16)
 			ft_wchar_c16(v, octet, s);
 		else
 			ft_wchar_c32(v, octet, s);
+		if (s->minus)
+			ft_char_c_minus(s);
 	}
 }

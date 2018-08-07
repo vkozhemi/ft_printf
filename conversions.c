@@ -80,6 +80,7 @@ void	ft_conversions(char *p, int *i, va_list ap, t_s *s)
 {
 	wchar_t value;
 
+	value = 0;
 	ft_get_conversions(p, i, s);
 	ft_get_conversions_str(p, i, s);
 	if (p[*i] == 'c')

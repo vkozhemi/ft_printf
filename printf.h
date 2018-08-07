@@ -42,6 +42,7 @@ typedef struct	s_s
 	int			i;
 	int			len_wchar;
 	int			len_wchar1;
+	int			len_wchar2;
 	int			wchar_s_res;
 	int			len_wchar3;
 	int			destruct;
@@ -95,5 +96,9 @@ void			ft_wchar_s_str(t_s *s, int j);
 void			ft_wchar_s_str_p_w(t_s *s, char *n);
 void			ft_len_wchar1(wchar_t value, t_s *s);
 void			ft_len_wchar(wchar_t value, t_s *s);
+int				ft_size_bin(wchar_t value);
+void			ft_len_wchar2(wchar_t value, t_s *s);
+void			ft_char_c_minus(t_s *s);
+void			ft_char_c_no_minus(t_s *s);
 
 #endif

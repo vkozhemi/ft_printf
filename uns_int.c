@@ -101,6 +101,6 @@ void	ft_uns_int(uintmax_t d, t_s *s, char *p, int *i)
 	else
 		ft_flag_no_minus_uns_int(s, d, p, i);
 	ft_count_uns_int(s, d);
-	free(str);
 	ft_bzero(s, sizeof(int) * 24 + sizeof(char) * 2 + sizeof(char*));
+	free(str);
 }
